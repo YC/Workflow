@@ -1,0 +1,15 @@
+*		text=auto
+
+# Git
+.git*	text	eol=lf
+
+# Web
+*.html	text	eol=lf
+*.css	text	eol=lf
+*.js	text	eol=lf
+*.json	text	eol=lf
+*.ejs	text	eol=lf
+
+# Text
+*.md	text	eol=lf
+

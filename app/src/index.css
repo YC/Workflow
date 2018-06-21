@@ -1,0 +1,93 @@
+html, body, #root, #root>div {
+    min-height: 100vh;
+}
+
+html {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-repeat: repeat;
+}
+
+/* Styling for hyperlinks universally */
+a:link, a:visited {
+    text-decoration: none;
+    color: inherit;
+    font: inherit;
+}
+a:hover {
+    transition-duration: .3s;
+    color: #30677E;
+}
+
+/* Underlines a visible link */
+a.visible-link {
+    text-decoration: underline;
+    color: #55968f;
+    text-decoration-color: #55968f;
+}
+
+/* Status footer styling */
+/* Adapted from:
+https://stackoverflow.com/questions/2005954
+https://easings.net/#easeOutQuad
+https://github.com/YC/coming-soon */
+#status {
+    transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    bottom: 0;
+    font-size: 1em;
+    text-align: center;
+    position: fixed;
+    color: #000;
+    max-width: 80%;
+    left: 50%;
+    padding: 1.2em;
+    transform: translateX(-50%) translateY(100%);
+}
+#status.show {
+    transform: translateX(-50%) translateY(0%);
+}
+#status.failure {
+    background-color: #e57373;
+}
+#status.success {
+    background-color: #95db95;
+}
+
+/* Centers elements vertically */
+.flexCenter {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+}
+
+/* Container for misc pages */
+.misc-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+}
+
+/* Loading animation */
+/* Adapted from: react-placeholder, licensed under MIT */
+/* https://github.com/buildo/react-placeholder */
+.loading {
+    animation: pulse 1.5s infinite;
+    background-color: #CDCDCD;
+}
+@keyframes pulse {
+  0% {
+    opacity: .6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .6;
+  }
+}

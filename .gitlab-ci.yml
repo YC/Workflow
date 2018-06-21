@@ -1,0 +1,34 @@
+# Specify base image
+image: node:latest
+
+# Set environment variables
+variables:
+  NODE_ENV: 'ci'
+  MONGO_URL: 'mongodb://mongo/workflow'
+  PORT: 3000
+
+# Add mongo
+services:
+  - mongo:latest
+
+# Specify cache
+cache:
+  paths:
+    - node_modules/
+
+# Install dependencies and build app before running tests
+before_script:
+  - npm install
+  - npm install --prefix app/
+  - npm install --prefix admin/
+  - npm run build
+
+stages:
+  - test
+
+# Specify tests
+test:
+  stage: test
+  script:
+   - npm test
+   - npm run populate

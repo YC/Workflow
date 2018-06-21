@@ -1,0 +1,40 @@
+/* Flex item */
+.flex {
+    display: flex;
+}
+
+/* Defines flex container with centered flex items */
+.centeredFlexContainer {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.centeredFlexItem {
+    display: flex;
+    align-self: center;
+}
+
+/* Submit button */
+.authButton {
+    margin: .8em 0 1em 0;
+}
+
+/* Login container */
+#login {
+    margin: 10px 40px 15px 40px;
+    padding: 1em;
+}
+/* Register container */
+#register {
+    margin: 50px 60px;
+}
+/* Heading for register page */
+#register-heading {
+    margin-bottom: .5em;
+}
+
+/* App icon on login page */
+#icon {
+    width: 250px;
+    padding: .8em;
+}

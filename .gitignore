@@ -1,0 +1,18 @@
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+dist/
+
+# Configuration
+.env
+
+# Mongo
+db/
+
+# Tests
+.nyc_output/
+report/
+
+# React
+build/

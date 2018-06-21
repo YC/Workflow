@@ -1,0 +1,101 @@
+# Javascript Node CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+
+version: 2
+jobs:
+  build:
+    # Run steps with node/mongo docker images
+    docker:
+      - image: circleci/node:latest
+      - image: circleci/mongo:latest
+
+    working_directory: ~/INFO30005
+
+    # Do not run CI on deploy branch
+    branches:
+      ignore:
+        - deploy
+
+    # Checkout code
+    steps:
+      - checkout
+
+      # Install dependencies for server
+      # Restore cache for server node_modules
+      - restore_cache:
+          keys:
+          - server-dependencies-{{ checksum "package.json" }}
+          - server-dependencies-
+
+      # Run yarn install to install missing dependencies
+      - run: yarn install
+
+      # Save the cache for future tests
+      - save_cache:
+          paths:
+            - node_modules
+          key: server-dependencies-{{ checksum "package.json" }}
+
+      # Install dependencies for main app
+      - restore_cache:
+          keys:
+          - app-dependencies-{{ checksum "app/package.json" }}
+          - app-dependencies-
+
+      - run:
+          command: yarn install
+          working_directory: app
+
+      - save_cache:
+          paths:
+            - app/node_modules
+          key: app-dependencies-{{ checksum "app/package.json" }}
+
+      # Install dependencies for Admin app
+      - restore_cache:
+          keys:
+          - admin-dependencies-{{ checksum "admin/package.json" }}
+          - admin-dependencies-
+
+      - run:
+          command: yarn install
+          working_directory: admin
+
+      - save_cache:
+          paths:
+            - admin/node_modules
+          key: admin-dependencies-{{ checksum "admin/package.json" }}
+
+      # Build
+      - run: REACT_APP_API_URL=https://wfl.azurewebsites.net/api yarn run build
+
+      # Run tests!
+      - run: yarn test
+      - run: yarn run populate
+
+      # Commit build result to deploy branch
+      # Adapted from:
+      # https://medium.com/@strid/automatic-deploy-to-azure-web-app-with-circle-ci-v2-0-1e4bda0626e5
+      # https://stackoverflow.com/questions/299964
+      - add_ssh_keys:
+          fingerprints:
+            - "3a:50:89:06:4b:c2:64:8d:d5:ec:c2:cd:1d:e0:61:9b"
+
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git config --global user.email "$USER_EMAIL"
+              git config --global user.name "$USER_NAME"
+
+              git fetch
+              git checkout deploy || git checkout -b deploy
+              find -maxdepth 1 ! -name .git ! -name build ! -name . -exec rm -rf {} \;
+              mv build/* .
+              rm -r build/
+              rm -r populate/ test/ uploads/
+              git checkout master -- .circleci
+
+              git add -A
+              git commit --allow-empty -m "$CIRCLE_BRANCH Build #$CIRCLE_BUILD_NUM"
+              git push -u origin deploy
+            fi
