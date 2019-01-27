@@ -94,7 +94,7 @@ export class ForumThread extends React.Component {
                                     <Typography>
                                         {composeName(author)}
                                     </Typography>
-                                    <Typography variant="display4">
+                                    <Typography variant="h1">
                                         {moment(thread.createdAt).calendar()}
                                     </Typography>
                                 </Grid>
@@ -103,7 +103,7 @@ export class ForumThread extends React.Component {
 
                         {/* Title of thread */}
                         <Grid item className={classes.title}>
-                            <Typography variant="subheading">
+                            <Typography variant="subtitle1">
                                 {thread.title}
                             </Typography>
                         </Grid>
@@ -114,7 +114,7 @@ export class ForumThread extends React.Component {
                 <ExpansionPanelDetails className={classes.detailsContainer}>
                     {/* Description of thread (if applicable) */}
                     <Typography
-                        varient="display4"
+                        varient="h1"
                         className={classes.description}
                     >
                         {thread.description || 'No description given...'}
@@ -135,7 +135,7 @@ export class ForumThread extends React.Component {
                         </Grid>
                         <Grid item>
                             <Button
-                                variant="flat"
+                                variant="text"
                                 color="secondary"
                                 onClick={this.submitComment}
                             >
@@ -162,5 +162,8 @@ ForumThread.propTypes = {
     addThreadComment: PropTypes.func.isRequired
 };
 export default withStyles(styles)(
-    connect(null, matchDispatchToProps)(ForumThread)
+    connect(
+        null,
+        matchDispatchToProps
+    )(ForumThread)
 );

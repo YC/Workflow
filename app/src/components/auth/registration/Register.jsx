@@ -152,7 +152,7 @@ export class RegisterPage extends React.Component {
                 <Helmet title="Register" />
                 <div id="register">
                     {/* Heading */}
-                    <Typography variant="display2" id="register-heading">
+                    <Typography variant="h3" id="register-heading">
                         Register
                     </Typography>
 
@@ -308,7 +308,7 @@ export class RegisterPage extends React.Component {
 
                         <Button
                             type="submit"
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className="authButton"
                             onClick={e => this.register(e)}

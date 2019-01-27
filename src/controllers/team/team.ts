@@ -78,7 +78,7 @@ export let getTeams = async (
         );
 
         // Get total number of matching teams with filter and set header
-        const total: number = await Team.count(filter);
+        const total: number = await Team.countDocuments(filter);
         res.set('Content-Range', 'bytes */' + total);
 
         // If user is not admin, check for membership

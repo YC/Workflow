@@ -99,7 +99,7 @@ export class LoginPage extends React.Component {
                     <div>
                         <img src={Logo} alt="App Icon" id="icon" />
                     </div>
-                    <Typography variant="display2">Sign In</Typography>
+                    <Typography variant="h3">Sign In</Typography>
 
                     {/* Form (username/password fields) */}
                     <form>
@@ -145,7 +145,7 @@ export class LoginPage extends React.Component {
 
                         <Button
                             type="submit"
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className="authButton"
                             onClick={e => this.login(e)}

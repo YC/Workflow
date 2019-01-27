@@ -114,7 +114,7 @@ export class FeedComment extends React.Component {
                         {/* Submit button */}
                         <Grid item>
                             <Button
-                                variant="flat"
+                                variant="text"
                                 color="secondary"
                                 onClick={this.submitComment}
                             >

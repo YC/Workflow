@@ -147,7 +147,7 @@ export let getMembers = async (
         );
 
         // Get total number of matching members with filter and set header
-        const total = await Member.count(filter);
+        const total = await Member.countDocuments(filter);
         res.set('Content-Range', 'bytes */' + total);
 
         // If the user is an admin, keep the rep field

@@ -13,7 +13,7 @@ export class Redirect extends React.Component {
     render() {
         return (
             <div className="misc-container">
-                <Typography variant="display2">Redirecting...</Typography>
+                <Typography variant="h3">Redirecting...</Typography>
             </div>
         );
     }

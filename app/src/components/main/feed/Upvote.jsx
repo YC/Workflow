@@ -84,7 +84,7 @@ export class Upvote extends React.Component {
                     <Grid item className="flexCenter">
                         <Button
                             disabled={disabled || upvoteDisabled}
-                            variant="flat"
+                            variant="text"
                             color={this.getColour(this.state.upvoted)}
                             className={classes.buttonStyle}
                             onClick={this.submitVote}

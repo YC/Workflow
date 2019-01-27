@@ -28,7 +28,7 @@ jobs:
           - server-dependencies-
 
       # Run yarn install to install missing dependencies
-      - run: yarn install
+      - run: yarn install --ignore-engines
 
       # Save the cache for future tests
       - save_cache:

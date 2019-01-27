@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import AddPhotoAlternate from '@material-ui/icons/InsertPhoto';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './AvatarUploadStyle';
+import classNames from 'classnames';
 
 // Member avatar component
 class AvatarUpload extends React.Component {
@@ -44,16 +45,32 @@ class AvatarUpload extends React.Component {
                 accept="image/png,image/jpeg,image/gif"
                 onDrop={this.handleImageUpload}
             >
-                <AddPhotoAlternate className={classes.addPhoto} />
-                {/* Render inner status text */}
-                <Typography
-                    variant="body2"
-                    className={rejected ? classes.dropzoneReject : ''}
-                >
-                    {rejected && 'File format is invalid'}
-                    {accepted && 'Your avatar has been sent'}
-                    {!rejected && !accepted && 'Upload an avatar'}
-                </Typography>
+                {({ getRootProps, getInputProps, isDragActive }) => {
+                    return (
+                        <div
+                            {...getRootProps()}
+                            className={classNames(
+                                classes.dropzone,
+                                'dropzone',
+                                { 'dropzone--isActive': isDragActive }
+                            )}
+                        >
+                            <input {...getInputProps()} />
+                            <AddPhotoAlternate className={classes.addPhoto} />
+                            {/* Render inner status text */}
+                            <Typography
+                                variant="body2"
+                                className={
+                                    rejected ? classes.dropzoneReject : ''
+                                }
+                            >
+                                {rejected && 'File format is invalid'}
+                                {accepted && 'Your avatar has been sent'}
+                                {!rejected && !accepted && 'Upload an avatar'}
+                            </Typography>
+                        </div>
+                    );
+                }}
             </Dropzone>
         );
     }

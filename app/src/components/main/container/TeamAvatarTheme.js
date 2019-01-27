@@ -3,6 +3,9 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const AvatarTheme = createMuiTheme({
+    typography: {
+        useNextVariants: true
+    },
     // Edit the margins of the team avatars
     overrides: {
         MuiAvatar: {

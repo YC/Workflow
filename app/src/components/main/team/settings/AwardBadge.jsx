@@ -288,5 +288,8 @@ AwardBadge.propTypes = {
     classes: PropTypes.object.isRequired
 };
 export default withStyles(styles)(
-    connect(null, matchDispatchToProps)(AwardBadge)
+    connect(
+        null,
+        matchDispatchToProps
+    )(AwardBadge)
 );

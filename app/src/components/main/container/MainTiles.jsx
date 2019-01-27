@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 // material-ui imports
 import ListItem from '@material-ui/core/ListItem';
@@ -8,6 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
+import styles from './ListIconStyle';
 
 // Component for Main (static) tiles on Sidebar
 class MainTiles extends React.Component {
@@ -25,11 +27,13 @@ class MainTiles extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <React.Fragment>
                 {/* Home */}
                 <ListItem button onClick={() => this.navigate('/')}>
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.icon}>
                         <HomeIcon />
                     </ListItemIcon>
                     <ListItemText disableTypography primary="Home" />
@@ -37,7 +41,7 @@ class MainTiles extends React.Component {
 
                 {/* Search */}
                 <ListItem button onClick={() => this.navigate('/search')}>
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.icon}>
                         <SearchIcon />
                     </ListItemIcon>
                     <ListItemText disableTypography primary="Search" />
@@ -51,4 +55,4 @@ class MainTiles extends React.Component {
 MainTiles.propTypes = {
     history: PropTypes.object.isRequired
 };
-export default withRouter(MainTiles);
+export default withRouter(withStyles(styles)(MainTiles));

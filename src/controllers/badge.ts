@@ -38,7 +38,7 @@ export let getBadges = async (
         // Get badges
         const badges = await Badge.find(filter, undefined, options);
         // Get total number of badges for filter and set header
-        const total: number = await Badge.count(filter);
+        const total: number = await Badge.countDocuments(filter);
         res.set('Content-Range', 'bytes */' + total);
 
         // Return response

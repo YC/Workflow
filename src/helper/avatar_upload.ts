@@ -7,7 +7,6 @@
 // http://markocen.github.io/blog/pre-processing-uploaded-image-on-nodejs.html
 // https://github.com/expressjs/multer/issues/203
 
-import path from 'path';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import { Request } from 'express';
@@ -62,23 +61,16 @@ export let avatar = multer({
 });
 
 // Function for processing upload image
-export let processAvatar = function(file: any): Promise<string> {
-    return new Promise((resolve, reject) => {
-        // Initialise jimp with buffer
-        jimp.read(file.path, (err, image) => {
-            // Reject promise on error
-            if (err) {
-                reject(err);
-            }
+export let processAvatar = async function(file: any): Promise<string> {
+    // Initialise jimp with buffer
+    const image = await jimp.read(file.path);
 
-            // Resize image
-            image
-                .resize(256, 256)
-                .quality(100)
-                .write(file.path);
+    // Resize image
+    image
+        .resize(256, 256)
+        .quality(100)
+        .write(file.path);
 
-            // Return filename of file on success
-            resolve(uploadDirectoryFromRoot + file.filename);
-        });
-    });
+    // Return filename of file on success
+    return uploadDirectoryFromRoot + file.filename;
 };

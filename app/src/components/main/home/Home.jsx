@@ -93,4 +93,7 @@ HomePage.propTypes = {
     fetchPosts: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired
 };
-export default connect(null, mapDispatchToProps)(HomePage);
+export default connect(
+    null,
+    mapDispatchToProps
+)(HomePage);

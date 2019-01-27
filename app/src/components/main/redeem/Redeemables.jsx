@@ -66,14 +66,17 @@ export class Redeemables extends React.Component {
                             </CustomTableCell>
 
                             {/* Amount of reputation required */}
-                            <CustomTableCell numeric data-label="Reputation">
+                            <CustomTableCell
+                                align="right"
+                                data-label="Reputation"
+                            >
                                 {redeemables[itemID].rep}
                             </CustomTableCell>
 
                             {/* Redeem Button */}
                             <CustomTableCell>
                                 <Button
-                                    variant="raised"
+                                    variant="contained"
                                     color="primary"
                                     className={classes.redeem}
                                     onClick={() =>

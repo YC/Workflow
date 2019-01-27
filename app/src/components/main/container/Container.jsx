@@ -117,7 +117,7 @@ export class Container extends React.Component {
                         </IconButton>
 
                         {/* Page title text */}
-                        <Typography variant="title" color="inherit" noWrap>
+                        <Typography variant="h6" color="inherit" noWrap>
                             {document.title}
                         </Typography>
 
@@ -212,5 +212,10 @@ Container.propTypes = {
     user: PropTypes.object.isRequired,
     teams: PropTypes.object
 };
-const WithStyles = withStyles(styles)(connect(null, UserActions)(Container));
+const WithStyles = withStyles(styles)(
+    connect(
+        null,
+        UserActions
+    )(Container)
+);
 export default withRouter(WithStyles);

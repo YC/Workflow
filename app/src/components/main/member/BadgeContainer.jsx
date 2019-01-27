@@ -165,5 +165,10 @@ BadgeContainer.propTypes = {
     member: PropTypes.object.isRequired
 };
 export default withStyles(styles)(
-    withRouter(connect(null, mapDispatchToProps)(BadgeContainer))
+    withRouter(
+        connect(
+            null,
+            mapDispatchToProps
+        )(BadgeContainer)
+    )
 );

@@ -115,7 +115,7 @@ export class FeedPost extends React.Component {
                     subheader={
                         loaded ? (
                             // Date/team information
-                            <Typography variant="display4">
+                            <Typography variant="h1">
                                 {moment(post.createdAt).calendar()}
                                 {type === 'home' && (
                                     // If on home page, show team selector
@@ -231,5 +231,8 @@ FeedPost.propTypes = {
     members: PropTypes.object.isRequired
 };
 export default withStyles(styles)(
-    connect(null, matchDispatchToProps)(FeedPost)
+    connect(
+        null,
+        matchDispatchToProps
+    )(FeedPost)
 );

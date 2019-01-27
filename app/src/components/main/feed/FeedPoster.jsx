@@ -164,7 +164,7 @@ export class FeedPoster extends React.Component {
                 {/* Header */}
                 <CardHeader
                     title={
-                        <Typography variant="title">
+                        <Typography variant="h6">
                             Start a new post
                         </Typography>
                     }
@@ -214,7 +214,7 @@ export class FeedPoster extends React.Component {
                             {/* Submit button */}
                             <Grid item>
                                 <Button
-                                    variant="flat"
+                                    variant="text"
                                     color="secondary"
                                     onClick={this.submitPost}
                                 >
@@ -246,5 +246,10 @@ FeedPoster.propTypes = {
     addPost: PropTypes.func.isRequired
 };
 export default withRouter(
-    withStyles(styles)(connect(null, PostActions)(FeedPoster))
+    withStyles(styles)(
+        connect(
+            null,
+            PostActions
+        )(FeedPoster)
+    )
 );

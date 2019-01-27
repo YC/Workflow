@@ -23,41 +23,42 @@ const theme = createMuiTheme({
         // Defining all the font families
         fontFamily: 'Lato, Roboto, Bitter, sans-serif',
         fontDefaultWeight: 400,
+        useNextVariants: true,
 
         // Define variants Typography variants
-        display4: {
+        h1: {
             fontFamily: 'Roboto, Arial, sans-serif',
             fontWeight: 300,
             fontSize: 12,
             color: '#757575'
         },
 
-        // Overriding styling for display3
-        display3: {
+        // Overriding styling for h2
+        h2: {
             fontFamily: 'Lato, sans-serif',
             fontWeight: 600,
             fontSize: 50,
             color: '#757575'
         },
 
-        // Overriding styling for display2
-        display2: {
+        // Overriding styling for h3
+        h3: {
             fontFamily: 'Lato, sans-serif',
             fontWeight: 600,
             fontSize: 38,
             color: '#757575'
         },
 
-        // Overriding styling for display1
-        display1: {
+        // Overriding styling for h4
+        h4: {
             fontFamily: 'Lato, sans-serif',
             fontWeight: 500,
             fontSize: 30,
             color: '#757575'
         },
 
-        // Overriding styling for title
-        title: {
+        // Overriding styling for h6
+        h6: {
             fontFamily: 'Roboto, sans-serif',
             fontWeight: 500,
             //fontStyle: 'bold',
@@ -65,8 +66,8 @@ const theme = createMuiTheme({
             color: '#757575'
         },
 
-        // Overriding styling for subheading
-        subheading: {
+        // Overriding styling for subtitle1
+        subtitle1: {
             fontFamily: 'Roboto, sans-serif',
             fontWeight: 500,
             fontStyle: 'bold',
@@ -79,15 +80,15 @@ const theme = createMuiTheme({
             fontWeight: 400
         },
 
-        // Overriding styling for body1
-        body1: {
+        // Overriding styling for body2
+        body2: {
             fontFamily: 'Roboto, Arial, sans-serif',
             fontWeight: 300,
             fontSize: 14
         },
 
-        // Overriding styling for body2
-        body2: {
+        // Overriding styling for body1
+        body1: {
             fontFamily: 'Roboto, Arial, sans-serif',
             fontWeight: 300,
             fontSize: 16,

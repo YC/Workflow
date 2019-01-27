@@ -85,4 +85,7 @@ function mapStateToProps(state) {
 Status.propTypes = {
     status: PropTypes.object
 };
-export default connect(mapStateToProps, null)(Status);
+export default connect(
+    mapStateToProps,
+    null
+)(Status);

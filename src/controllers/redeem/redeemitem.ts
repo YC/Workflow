@@ -17,7 +17,7 @@ export let getRedeemed = async (
         // Find all redeemItems
         const redeemItems = await RedeemItem.find(filter, undefined, options);
         // Get total number of matching redeemItems with filter and set header
-        const total: number = await RedeemItem.count(filter);
+        const total: number = await RedeemItem.countDocuments(filter);
         res.set('Content-Range', 'bytes */' + total);
 
         // Return retrieved redeemItems

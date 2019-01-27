@@ -61,14 +61,14 @@ class Settings extends React.Component {
         return (
             <Paper className={classes.root}>
                 {/* Avatar upload */}
-                <Typography variant="display1" className={classes.header}>
+                <Typography variant="h4" className={classes.header}>
                     Avatar
                 </Typography>
                 <AvatarUpload id={team.id} uploadAvatar={uploadAvatar} />
                 <Divider className={classes.divider} />
 
                 {/* News item */}
-                <Typography variant="display1" className={classes.header}>
+                <Typography variant="h4" className={classes.header}>
                     Add News Item
                 </Typography>
                 <TextField
@@ -87,7 +87,7 @@ class Settings extends React.Component {
                 <Divider className={classes.divider} />
 
                 {/* Award badge */}
-                <Typography variant="display1" className={classes.header}>
+                <Typography variant="h4" className={classes.header}>
                     Award Badge
                 </Typography>
                 <AwardBadge

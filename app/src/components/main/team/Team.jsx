@@ -161,7 +161,7 @@ class Team extends React.Component {
                 <AppBar position="static" color="default">
                     <Tabs
                         value={value}
-                        scrollable
+                        variant="scrollable"
                         scrollButtons="off"
                         onChange={this.handleChange}
                     >
@@ -233,4 +233,9 @@ Team.propTypes = {
     addNewsItem: PropTypes.func.isRequired,
     awardBadge: PropTypes.func.isRequired
 };
-export default withRouter(connect(null, matchDispatchToProps)(Team));
+export default withRouter(
+    connect(
+        null,
+        matchDispatchToProps
+    )(Team)
+);

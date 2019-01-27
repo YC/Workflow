@@ -22,16 +22,15 @@ export class Feed extends React.Component {
             <React.Fragment>
                 {/* Render the FeedPoster component when it's not the
                     user's own profile */}
-                {parentID !== user.id &&
-                    !disabled && (
-                        <FeedPoster
-                            posterMargin={posterMargin}
-                            type={type}
-                            parentID={parentID}
-                            teams={teams}
-                            user={user}
-                        />
-                    )}
+                {parentID !== user.id && !disabled && (
+                    <FeedPoster
+                        posterMargin={posterMargin}
+                        type={type}
+                        parentID={parentID}
+                        teams={teams}
+                        user={user}
+                    />
+                )}
 
                 {/* The content (posts) of the feed */}
                 <FeedContent

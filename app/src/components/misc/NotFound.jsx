@@ -7,7 +7,7 @@ export class NotFound extends React.Component {
     render() {
         return (
             <div className="misc-container">
-                <Typography variant="display2">404 Page Not Found</Typography>
+                <Typography variant="h3">404 Page Not Found</Typography>
             </div>
         );
     }

@@ -172,4 +172,9 @@ Main.propTypes = {
     actions: PropTypes.object.isRequired
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Main)
+);

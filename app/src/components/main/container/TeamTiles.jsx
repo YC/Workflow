@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { withStyles } from '@material-ui/core/styles';
 
 // material-ui imports
 import ListItem from '@material-ui/core/ListItem';
@@ -11,6 +12,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 // Import theme and Avatar component
 import theme from './TeamAvatarTheme';
 import Avatar from '../common/Avatar';
+import styles from './ListIconStyle';
 
 // Component for team tiles on Sidebar
 class TeamTiles extends React.Component {
@@ -22,7 +24,7 @@ class TeamTiles extends React.Component {
 
     render() {
         // Extract teams from props
-        const { teams } = this.props;
+        const { teams, classes } = this.props;
 
         // Do not render if teams are still loading
         if (!teams) {
@@ -40,7 +42,7 @@ class TeamTiles extends React.Component {
                     >
                         {/* Team Avatar */}
                         <MuiThemeProvider theme={theme}>
-                            <ListItemAvatar>
+                            <ListItemAvatar className={classes.icon}>
                                 <Avatar avatar={teams[teamShortName].avatar}>
                                     {teams[teamShortName].displayname}
                                 </Avatar>
@@ -63,4 +65,4 @@ TeamTiles.propTypes = {
     teams: PropTypes.object,
     history: PropTypes.object
 };
-export default withRouter(TeamTiles);
+export default withRouter(withStyles(styles)(TeamTiles));

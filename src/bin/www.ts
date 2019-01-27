@@ -8,7 +8,14 @@ import app from '../app';
 
 // Connect to MongoDB
 // Adapted from: http://mongoosejs.com/docs/index.html
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/');
+mongoose.connect(
+    process.env.MONGO_URL || 'mongodb://localhost:27017/workflow',
+    {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false
+    }
+);
 const db: Connection = mongoose.connection;
 db.on('error', function(err: any) {
     console.error(err);

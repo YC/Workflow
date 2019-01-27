@@ -20,12 +20,12 @@ before(function(done) {
 
 // Clear collections before starting
 before(async function() {
-    await mongoose.model('Badge').remove({});
-    await mongoose.model('Redeemable').remove({});
-    await mongoose.model('Team').remove({});
-    await mongoose.model('Member').remove({});
-    await mongoose.model('Post').remove({});
-    await mongoose.model('RedeemItem').remove({});
+    await mongoose.model('Badge').deleteMany({});
+    await mongoose.model('Redeemable').deleteMany({});
+    await mongoose.model('Team').deleteMany({});
+    await mongoose.model('Member').deleteMany({});
+    await mongoose.model('Post').deleteMany({});
+    await mongoose.model('RedeemItem').deleteMany({});
 });
 
 // Run tests

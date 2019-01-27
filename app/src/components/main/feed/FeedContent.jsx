@@ -118,4 +118,7 @@ FeedContent.propTypes = {
 const matchDispatchToProps = function(dispatch) {
     return bindActionCreators({ getMembers }, dispatch);
 };
-export default connect(null, matchDispatchToProps)(FeedContent);
+export default connect(
+    null,
+    matchDispatchToProps
+)(FeedContent);

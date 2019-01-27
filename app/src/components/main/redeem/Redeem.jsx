@@ -83,16 +83,15 @@ export class Redeem extends React.Component {
                 <Typography
                     gutterBottom={true}
                     className={classes.redeemablesTitle}
-                    variant="title"
+                    variant="h6"
                 >
                     Redeemables ({user.rep} rep available)
                 </Typography>
 
                 {/* If there are no redeemables */}
-                {redeemables &&
-                    redeemables.length === 0 && (
-                        <Typography>There are no redeemables...</Typography>
-                    )}
+                {redeemables && redeemables.length === 0 && (
+                    <Typography>There are no redeemables...</Typography>
+                )}
 
                 {/* List redeemables (items that user is able to redeem) */}
                 <Paper>
@@ -109,27 +108,24 @@ export class Redeem extends React.Component {
                 <Typography
                     gutterBottom={true}
                     className={classes.redeemedTitle}
-                    variant="title"
+                    variant="h6"
                 >
                     Redeemed
                 </Typography>
 
                 {/* If user has no redeemed items */}
-                {redeemed &&
-                    redeemed.length === 0 && (
-                        <Typography>You have no redeemed items...</Typography>
-                    )}
+                {redeemed && redeemed.length === 0 && (
+                    <Typography>You have no redeemed items...</Typography>
+                )}
 
                 {/* List redeemed items (that user has already redeemed) */}
                 <Paper>
-                    {redeemed &&
-                        redeemed.length !== 0 &&
-                        redeemables && (
-                            <Redeemed
-                                redeemed={redeemed}
-                                redeemables={redeemables}
-                            />
-                        )}
+                    {redeemed && redeemed.length !== 0 && redeemables && (
+                        <Redeemed
+                            redeemed={redeemed}
+                            redeemables={redeemables}
+                        />
+                    )}
                 </Paper>
             </React.Fragment>
         );
@@ -153,4 +149,9 @@ Redeem.propTypes = {
     user: PropTypes.object.isRequired,
     redeemables: PropTypes.object
 };
-export default withStyles(styles)(connect(null, matchDispatchToProps)(Redeem));
+export default withStyles(styles)(
+    connect(
+        null,
+        matchDispatchToProps
+    )(Redeem)
+);

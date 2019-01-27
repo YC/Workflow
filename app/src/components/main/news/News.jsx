@@ -40,7 +40,7 @@ export class News extends React.Component {
         return (
             <Grid>
                 {/* Heading */}
-                <Typography variant="title">Latest News</Typography>
+                <Typography variant="h6">Latest News</Typography>
                 {/* News items */}
                 {items.map(item => {
                     return (

@@ -83,4 +83,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     return { state: state };
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Auth)
+);

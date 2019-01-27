@@ -148,4 +148,7 @@ Forum.propTypes = {
     members: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
 };
-export default connect(null, matchDispatchToProps)(Forum);
+export default connect(
+    null,
+    matchDispatchToProps
+)(Forum);

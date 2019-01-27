@@ -99,13 +99,13 @@ export class TeamMembers extends React.Component {
                 {/* Paper to contain the MemberBoxes */}
                 <Paper className={classes.root}>
                     {/* Member names */}
-                    <Typography variant="display1">Members</Typography>
+                    <Typography variant="h4">Members</Typography>
                     <MemberBox members={this.state.members} />
 
                     <Divider className={classes.divider} />
 
                     {/* Manager names */}
-                    <Typography variant="display1">Managers</Typography>
+                    <Typography variant="h4">Managers</Typography>
                     <MemberBox members={this.state.managers} />
                 </Paper>
             </React.Fragment>
@@ -122,5 +122,10 @@ TeamMembers.propTypes = {
     classes: PropTypes.object.isRequired
 };
 export default withStyles(styles)(
-    withRouter(connect(null, MemberActions)(TeamMembers))
+    withRouter(
+        connect(
+            null,
+            MemberActions
+        )(TeamMembers)
+    )
 );

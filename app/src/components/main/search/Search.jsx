@@ -63,7 +63,7 @@ class Search extends React.Component {
                 <Card>
                     <CardHeader
                         title={
-                            <Typography variant="title">
+                            <Typography variant="h6">
                                 Perform a search
                             </Typography>
                         }
@@ -85,59 +85,55 @@ class Search extends React.Component {
                 </Card>
 
                 {/* Display members (if applicable) */}
-                {search &&
-                    search.members && (
-                        <React.Fragment>
-                            <Divider className={classes.divider} />
-                            <Typography
-                                variant="display1"
-                                className={classes.header}
-                            >
-                                Members
-                            </Typography>
+                {search && search.members && (
+                    <React.Fragment>
+                        <Divider className={classes.divider} />
+                        <Typography
+                            variant="h4"
+                            className={classes.header}
+                        >
+                            Members
+                        </Typography>
 
-                            {/* Depending on whether members have been found,
+                        {/* Depending on whether members have been found,
                                 display a MemberBox component or some text to
                                 indicate that there are no matches */}
-                            {search.members.length > 0 ? (
-                                <MemberBox members={search.members} />
-                            ) : (
-                                <Typography>
-                                    No matching members found
-                                </Typography>
-                            )}
-                        </React.Fragment>
-                    )}
+                        {search.members.length > 0 ? (
+                            <MemberBox members={search.members} />
+                        ) : (
+                            <Typography>No matching members found</Typography>
+                        )}
+                    </React.Fragment>
+                )}
 
                 {/* Display posts (if applicable) */}
-                {search &&
-                    search.posts && (
-                        <React.Fragment>
-                            <Divider className={classes.divider} />
-                            <Typography
-                                className={classes.header}
-                                variant="display1"
-                            >
-                                Posts
-                            </Typography>
+                {search && search.posts && (
+                    <React.Fragment>
+                        <Divider className={classes.divider} />
+                        <Typography
+                            className={classes.header}
+                            variant="h4"
+                        >
+                            Posts
+                        </Typography>
 
-                            {/* Depending on whether there are matching posts,
+                        {/* Depending on whether there are matching posts,
                             display either a disabled Feed component or some
                             text to indicate that there are no matches */}
-                            {search.posts.length > 0 ? (
-                                <Feed
-                                    disabled
-                                    members={members}
-                                    teams={teams}
-                                    posts={search.posts}
-                                    user={user}
-                                    type="home"
-                                />
-                            ) : (
-                                <Typography>No matching posts found</Typography>
-                            )}
-                        </React.Fragment>
-                    )}
+                        {search.posts.length > 0 ? (
+                            <Feed
+                                disabled
+                                members={members}
+                                teams={teams}
+                                posts={search.posts}
+                                user={user}
+                                type="home"
+                            />
+                        ) : (
+                            <Typography>No matching posts found</Typography>
+                        )}
+                    </React.Fragment>
+                )}
             </React.Fragment>
         );
     }
@@ -156,4 +152,9 @@ Search.propTypes = {
     members: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired
 };
-export default withStyles(styles)(connect(null, mapDispatchToProps)(Search));
+export default withStyles(styles)(
+    connect(
+        null,
+        mapDispatchToProps
+    )(Search)
+);

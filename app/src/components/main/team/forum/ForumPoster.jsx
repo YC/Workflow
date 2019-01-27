@@ -68,7 +68,7 @@ export class ForumPoster extends React.Component {
                     {/* Title */}
                     <CardHeader
                         title={
-                            <Typography variant="title">
+                            <Typography variant="h6">
                                 Start a new thread
                             </Typography>
                         }
@@ -129,7 +129,7 @@ export class ForumPoster extends React.Component {
                             <Grid container className={classes.selectable}>
                                 <Grid item>
                                     <Button
-                                        variant="flat"
+                                        variant="text"
                                         color="secondary"
                                         onClick={this.submitThread}
                                     >
@@ -159,5 +159,8 @@ ForumPoster.propTypes = {
     addThread: PropTypes.func.isRequired
 };
 export default withStyles(styles)(
-    connect(null, matchDispatchToProps)(ForumPoster)
+    connect(
+        null,
+        matchDispatchToProps
+    )(ForumPoster)
 );

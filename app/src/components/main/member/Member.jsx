@@ -154,10 +154,10 @@ export class Member extends React.Component {
                     {/* Username and Name */}
                     <Grid item className={classes.row}>
                         <Grid item className={classes.name}>
-                            <Typography variant="display2">
+                            <Typography variant="h3">
                                 {composeName(member)}
                             </Typography>
-                            <Typography variant="display1">
+                            <Typography variant="h4">
                                 @{member.username}
                             </Typography>
                         </Grid>
@@ -206,5 +206,10 @@ Member.propTypes = {
     match: PropTypes.object.isRequired
 };
 export default withRouter(
-    withStyles(styles)(connect(null, matchDispatchToProps)(Member))
+    withStyles(styles)(
+        connect(
+            null,
+            matchDispatchToProps
+        )(Member)
+    )
 );

@@ -8,10 +8,10 @@ export class SuccessPage extends React.Component {
         return (
             <div>
                 <Helmet title="Success" />
-                <Typography variant="display3">
+                <Typography variant="h2">
                     Thank you for registering!
                 </Typography>
-                <Typography variant="title">
+                <Typography variant="h6">
                     An admin will review your registration shortly.
                 </Typography>
             </div>

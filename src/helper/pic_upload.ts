@@ -1,6 +1,3 @@
-// Helper for handling picture uploads
-import path from 'path';
-
 import mongoose from 'mongoose';
 import multer from 'multer';
 import { Request } from 'express';
