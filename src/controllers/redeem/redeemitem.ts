@@ -94,7 +94,7 @@ export let updateRedeemItem = async (
             err.status = 404;
             throw err;
         }
-        res.json(redeemItem.toJSON());
+        res.json(redeemItem);
     } catch (err) {
         next(err);
     }

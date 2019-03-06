@@ -122,7 +122,7 @@ export let updateBadgeAvatar = async (
                 { avatar: filename },
                 { new: true, runValidators: true, upsert: true }
             );
-            res.json(badge.toJSON());
+            res.json(badge);
         } else {
             // Return 422 if update fails
             const err: Error = new Error('Missing file payload');

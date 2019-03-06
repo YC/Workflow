@@ -164,7 +164,7 @@ export let updateTeamAvatar = async (
                 { avatar: filename },
                 { new: true, runValidators: true, upsert: true }
             ).select({ posts: 0, threads: 0 });
-            res.json(team.toJSON());
+            res.json(team);
         } else {
             const err: Error = new Error('Missing file payload');
             err.status = 422;

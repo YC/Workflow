@@ -43,7 +43,7 @@ export let updateMember = async (
             throw err;
         }
 
-        res.json(member.toJSON());
+        res.json(member);
     } catch (err) {
         next(err);
     }
@@ -69,7 +69,7 @@ export let updateMemberAvatar = async (
                 { avatar: filename },
                 { new: true, runValidators: true, upsert: true }
             ).select({ posts: 0, redeemItems: 0 });
-            res.json(member.toJSON());
+            res.json(member);
         } else {
             // If there is no file payload
             const err: Error = new Error('Missing file payload');
