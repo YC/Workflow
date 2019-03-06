@@ -13,7 +13,7 @@
     "swatch": "gulp devserver",
     "devstart": "node ./build/bin/www",
     "start": "node ./bin/www",
-    "test": "PORT=5001 nyc --reporter=text-summary mocha --reporter=list build/test --timeout 5000",
+    "test": "PORT=5001 nyc --reporter=text-summary mocha --reporter=list build/test --timeout 5000 --exit",
     "populate": "PORT=5001 mocha --reporter=list build/populate/index --timeout 200000",
     "localdb": "mkdir -p db/ && mongod --dbpath db/",
     "prettify": "prettier --single-quote --tab-width 4 --write \"src/**/*.ts\" \"src/bin/www\"",
@@ -69,7 +69,7 @@
     "form-data": "^2.3.2",
     "gulp": "^4.0.0",
     "gulp-typescript": "^5.0.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "node-fetch": "^2.1.2",
     "nyc": "^13.1.0",
     "typescript": "^3.2.4"

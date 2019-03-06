@@ -35,6 +35,5 @@ import './api';
 // Close database connection and server
 after(function(done) {
     mongoose.connection.close();
-    app.listen(process.env.PORT || 5000).close();
     done();
 });
