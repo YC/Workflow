@@ -134,6 +134,6 @@ memberSchema.pre('save', function save(next) {
 });
 
 // Initalise model and export
-interface IMemberModel extends IMember, mongoose.Document {}
+export interface IMemberModel extends IMember, mongoose.Document {}
 const Member = mongoose.model<IMemberModel>('Member', memberSchema);
 export default Member;

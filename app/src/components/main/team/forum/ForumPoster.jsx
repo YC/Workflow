@@ -77,7 +77,7 @@ export class ForumPoster extends React.Component {
                     <CardContent className={classes.content}>
                         <Grid
                             container
-                            spacing={16}
+                            spacing={2}
                             className={classes.container}
                         >
                             <Grid item>

@@ -76,7 +76,7 @@ export class ForumThread extends React.Component {
                             {/* Container for items on left */}
                             <Grid
                                 container
-                                spacing={16}
+                                spacing={2}
                                 wrap="wrap"
                                 className={classes.propertiesContainer}
                             >
@@ -113,10 +113,7 @@ export class ForumThread extends React.Component {
                 {/* Content of thread */}
                 <ExpansionPanelDetails className={classes.detailsContainer}>
                     {/* Description of thread (if applicable) */}
-                    <Typography
-                        varient="h1"
-                        className={classes.description}
-                    >
+                    <Typography varient="h1" className={classes.description}>
                         {thread.description || 'No description given...'}
                     </Typography>
 
@@ -124,7 +121,7 @@ export class ForumThread extends React.Component {
                     <ForumComment thread={thread} members={members} />
 
                     {/* Components for adding forum comments */}
-                    <Grid container spacing={16}>
+                    <Grid container spacing={2}>
                         <Grid item>
                             <TextField
                                 placeholder="Write a comment..."

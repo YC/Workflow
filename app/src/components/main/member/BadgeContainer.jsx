@@ -87,11 +87,7 @@ export class BadgeContainer extends React.Component {
             // Since there are no missing badges, the badges have been loaded
             this.setState({ badges_loaded: true });
         }
-    }
 
-    // When new props are received
-    componentWillReceiveProps(props) {
-        this.props = props;
         // If there are badges which have not been retrieved, reset state
         if (this.getNonloadedBadges().length !== 0) {
             this.setState({ badges_requested: false, badges_loaded: false });
@@ -117,7 +113,7 @@ export class BadgeContainer extends React.Component {
 
                 {/* Container for badges */}
                 <CardContent className={classes.container}>
-                    <Grid container spacing={8}>
+                    <Grid container spacing={1}>
                         {/* For each badge item */}
                         {member_badges.map(badgeItem => {
                             // Get badge from badges

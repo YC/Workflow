@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import isMongoId from 'validator/lib/isMongoId';
+import ErrorStatus from '../helper/error';
 
 // Ensures that the user is the requested member
 export let userIsMember = (req: Request, res: Response, next: NextFunction) => {
@@ -12,8 +12,7 @@ export let userIsMember = (req: Request, res: Response, next: NextFunction) => {
     if (req.user.id === req.params.memberID) {
         return next();
     } else {
-        const err = new Error('User is not member');
-        err.status = 403;
+        const err = new ErrorStatus('User is not member', 403);
         next(err);
     }
 };
@@ -34,18 +33,7 @@ export let userIsNotMember = (
     if (req.user.id.toString() !== req.params.memberID) {
         return next();
     } else {
-        const err = new Error('User is member');
-        err.status = 403;
+        const err = new ErrorStatus('User is member', 403);
         next(err);
     }
-};
-
-// Validates memberID param
-export let validateID = (req: Request, res: Response, next: NextFunction) => {
-    if (!isMongoId(req.params.memberID)) {
-        const err = new Error('Member ID is not valid');
-        err.status = 404;
-        return next(err);
-    }
-    next();
 };

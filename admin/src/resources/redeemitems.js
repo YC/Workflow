@@ -10,7 +10,6 @@ import {
     Datagrid,
     TextField,
     EditButton,
-    DisabledInput,
     SimpleForm,
     NumberField,
     SelectInput,
@@ -41,7 +40,7 @@ export const RedeemItemList = props => (
 export const RedeemItemEdit = props => (
     <Edit title={<RedeemItemTitle />} {...props}>
         <SimpleForm>
-            <DisabledInput source="id" />
+            <TextField source="id" disabled />
             <SelectInput
                 source="status"
                 choices={[

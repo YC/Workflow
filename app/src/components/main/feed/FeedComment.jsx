@@ -74,7 +74,7 @@ export class FeedComment extends React.Component {
                             key={comment.id}
                             container
                             className={classes.commentContainer}
-                            spacing={16}
+                            spacing={2}
                         >
                             {/* Avatar of author */}
                             <Grid item className={classes.commentItem}>
@@ -101,7 +101,7 @@ export class FeedComment extends React.Component {
 
                 {/* Add comment poster if not disabled */}
                 {!disabled && (
-                    <Grid container spacing={16}>
+                    <Grid container spacing={2}>
                         {/* Input text field */}
                         <Grid item>
                             <TextField

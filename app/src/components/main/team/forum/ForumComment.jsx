@@ -29,7 +29,7 @@ export class ForumComment extends React.Component {
                             key={comment.id}
                             container
                             className={classes.commentContainer}
-                            spacing={16}
+                            spacing={2}
                         >
                             {/* Display author avatar */}
                             <Grid item className={classes.commentItem}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -89,9 +89,11 @@ export class Container extends React.Component {
                 https://github.com/nfl/react-helmet/blob/master/src/Helmet.js
                 */}
                 <Helmet
-                    onChangeClientState={newState =>
-                        this.setState({ title: newState.title })
-                    }
+                    onChangeClientState={newState => {
+                        if (this.state.title !== newState.title) {
+                            this.setState({ title: newState.title });
+                        }
+                    }}
                 />
 
                 {/* Top bar */}

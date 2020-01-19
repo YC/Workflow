@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import Post from '../models/post';
 import Comment from '../models/comment';
 import { uploadDirectoryFromRoot } from '../helper/pic_upload';
+import ErrorStatus from '../helper/error';
 
 // Retrieves posts with the specified parentID
 export let getPosts = async (parentID: string) => {
@@ -70,8 +71,7 @@ export let addComment = async function(
 
     // Ensure that the parentIDs are equal
     if (!(post.parentID.toString() === parentID)) {
-        const err = new Error('Post parent is different');
-        err.status = 400;
+        const err = new ErrorStatus('Post parent is different', 400);
         throw err;
     }
 
@@ -102,16 +102,14 @@ export let addUpvote = async function(
 
     // Ensure that the parentIDs are equal
     if (!(post.parentID.toString() === parentID)) {
-        const err = new Error('Post parent is different');
-        err.status = 400;
+        const err = new ErrorStatus('Post parent is different', 400);
         throw err;
     }
 
     // Ensure that member has not already upvoted
     for (const upvotedMemberID of post.upvotes) {
         if (upvotedMemberID.equals(memberID)) {
-            const err = new Error('Member has already upvoted');
-            err.status = 400;
+            const err = new ErrorStatus('Member has already upvoted', 400);
             throw err;
         }
     }
@@ -132,8 +130,7 @@ export let removeUpvote = async function(
 
     // Ensure that the parentIDs are equal
     if (!(post.parentID.toString() === parentID)) {
-        const err = new Error('Post parent is different');
-        err.status = 400;
+        const err = new ErrorStatus('Post parent is different', 400);
         throw err;
     }
 
@@ -145,11 +142,11 @@ export let removeUpvote = async function(
         return await post.save();
     } else {
         // Member's ID is missing
-        const err: Error = new Error(
+        const err: Error = new ErrorStatus(
             'Member has not upvoted or has already \
-            removed upvote'
+            removed upvote',
+            400
         );
-        err.status = 400;
         throw err;
     }
 };

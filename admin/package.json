@@ -4,16 +4,16 @@
   "private": true,
   "dependencies": {
     "react": "^16.4.1",
-    "react-admin": "^2.6.2",
+    "react-admin": "^3.1.2",
     "react-dom": "^16.4.1",
-    "react-scripts": "^2.1.3"
+    "react-scripts": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prettify": "prettier --single-quote --tab-width 4 --write \"src/**/*.js\" \"src/**/*.jsx\""
+    "prettier": "prettier --single-quote --tab-width 4 --write \"src/**/*.js\" \"src/**/*.jsx\""
   },
   "browserslist": [
     ">0.2%",

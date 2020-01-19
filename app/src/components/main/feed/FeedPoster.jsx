@@ -164,14 +164,12 @@ export class FeedPoster extends React.Component {
                 {/* Header */}
                 <CardHeader
                     title={
-                        <Typography variant="h6">
-                            Start a new post
-                        </Typography>
+                        <Typography variant="h6">Start a new post</Typography>
                     }
                 />
                 {/* Contents */}
                 <CardContent className={classes.content}>
-                    <Grid container spacing={16} className={classes.container}>
+                    <Grid container spacing={2} className={classes.container}>
                         {/* Text to be posted */}
                         <Grid item>
                             <TextField

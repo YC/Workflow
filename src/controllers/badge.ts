@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
 import Badge from '../models/badge';
 import { Request, Response, NextFunction } from 'express';
+import ErrorStatus from '../helper/error';
 
 // Creates a badge
 export let createBadge = async (
@@ -62,8 +62,7 @@ export let getBadge = async (
         const badge = await Badge.findById(badgeID);
         // Return 404 if not found
         if (!badge) {
-            const err: Error = new Error('Badge not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Badge not found', 404);
             throw err;
         }
         res.json(badge.toJSON());
@@ -91,8 +90,7 @@ export let updateBadge = async (
         );
         // Return 404 if not found
         if (!badge) {
-            const err: Error = new Error('Badge not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Badge not found', 404);
             throw err;
         }
         res.json(badge.toJSON());
@@ -125,8 +123,7 @@ export let updateBadgeAvatar = async (
             res.json(badge);
         } else {
             // Return 422 if update fails
-            const err: Error = new Error('Missing file payload');
-            err.status = 422;
+            const err: Error = new ErrorStatus('Missing file payload', 422);
             throw err;
         }
     } catch (err) {

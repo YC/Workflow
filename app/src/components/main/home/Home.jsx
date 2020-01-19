@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -68,7 +68,9 @@ export class HomePage extends React.Component {
         // Render a Feed component with the collected posts
         return (
             <React.Fragment>
-                <Helmet title="Home" />
+                <Helmet>
+                    <title>Home</title>
+                </Helmet>
                 <Feed
                     members={members}
                     teams={teams}

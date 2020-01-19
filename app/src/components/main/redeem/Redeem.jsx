@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -77,7 +77,9 @@ export class Redeem extends React.Component {
 
         return (
             <React.Fragment>
-                <Helmet title="Redeem" />
+                <Helmet>
+                    <title>Redeem</title>
+                </Helmet>
 
                 {/* Redeemables title */}
                 <Typography

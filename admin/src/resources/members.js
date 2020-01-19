@@ -15,7 +15,6 @@ import {
     Datagrid,
     TextField,
     EditButton,
-    DisabledInput,
     SimpleForm,
     TextInput,
     BooleanField,
@@ -46,7 +45,7 @@ export const MemberList = props => (
 export const MemberEdit = props => (
     <Edit title={<MemberTitle />} {...props}>
         <SimpleForm>
-            <DisabledInput source="id" />
+            <TextField source="id" disabled />
             <BooleanInput label="Active" source="active" />
             <TextInput source="username" />
             <TextInput source="firstname" />

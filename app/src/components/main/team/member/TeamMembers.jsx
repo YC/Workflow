@@ -24,7 +24,7 @@ export class TeamMembers extends React.Component {
         this.setState({ team_loaded: false, team_loading: false });
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props/state
         const { team, members, getMembers } = this.props;
         const { team_loaded, team_loading } = this.state;
@@ -76,13 +76,11 @@ export class TeamMembers extends React.Component {
                 team_loading: false
             });
         }
-    }
 
-    // When navigating to another team
-    componentWillReceiveProps(newProps) {
-        // Set new props and reset flags
-        this.props = newProps;
-        this.setState({ team_loaded: false, team_loading: false });
+        // When navigating to another team
+        if (this.props !== prevProps) {
+            this.setState({ team_loaded: false, team_loading: false });
+        }
     }
 
     render() {

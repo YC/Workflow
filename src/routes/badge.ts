@@ -6,7 +6,7 @@ const router = express.Router();
 import * as BadgeController from '../controllers/badge';
 import * as AuthMiddleware from '../middleware/auth';
 import * as QueryMiddleware from '../middleware/query';
-import * as BadgeMiddleware from '../middleware/badge';
+import validateID from '../middleware/id';
 
 // Import avatar helper
 import { avatar } from '../helper/avatar_upload';
@@ -18,13 +18,13 @@ router.get('/', QueryMiddleware.parseQuery, BadgeController.getBadges);
 router.post('/', AuthMiddleware.isAdmin, BadgeController.createBadge);
 
 // Get badge
-router.get('/:badgeID', BadgeMiddleware.validateID, BadgeController.getBadge);
+router.get('/:badgeID', validateID('badgeID'), BadgeController.getBadge);
 
 // Update badge
 router.put(
     '/:badgeID',
     AuthMiddleware.isAdmin,
-    BadgeMiddleware.validateID,
+    validateID('badgeID'),
     BadgeController.updateBadge
 );
 
@@ -32,7 +32,7 @@ router.put(
 router.put(
     '/:badgeID/avatar',
     AuthMiddleware.isAdmin,
-    BadgeMiddleware.validateID,
+    validateID('badgeID'),
     avatar.single('avatar'),
     BadgeController.updateBadgeAvatar
 );

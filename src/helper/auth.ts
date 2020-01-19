@@ -7,7 +7,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy, IVerifyOptions } from 'passport-local';
 // Import Member model
-import Member from '../models/member';
+import Member, { IMemberModel } from '../models/member';
 
 // Serialise/Deserialise user
 passport.serializeUser<any, any>((user, done) => {
@@ -72,3 +72,9 @@ passport.use(
         }
     )
 );
+
+declare module 'express' {
+    export interface Request {
+        user: IMemberModel;
+    }
+}

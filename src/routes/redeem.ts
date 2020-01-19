@@ -4,10 +4,9 @@ const router = express.Router();
 
 // Controller and middleware imports
 import * as RedeemableController from '../controllers/redeem/redeemable';
-import * as RedeemItemController from '../controllers/redeem/redeemitem';
 import * as AuthMiddleware from '../middleware/auth';
 import * as QueryMiddleware from '../middleware/query';
-import * as RedeemableMiddleware from '../middleware/redeem';
+import validateID from '../middleware/id';
 
 // Get redeemables
 router.get(
@@ -22,7 +21,7 @@ router.post('/', AuthMiddleware.isAdmin, RedeemableController.createRedeemable);
 // Get redeemable
 router.get(
     '/:redeemableID',
-    RedeemableMiddleware.validateID,
+    validateID('redeemableID'),
     RedeemableController.getRedeemable
 );
 
@@ -30,7 +29,7 @@ router.get(
 router.put(
     '/:redeemableID',
     AuthMiddleware.isAdmin,
-    RedeemableMiddleware.validateID,
+    validateID('redeemableID'),
     RedeemableController.updateRedeemable
 );
 

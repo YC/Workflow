@@ -30,7 +30,7 @@ const DrawerStyle = theme => ({
     // Ensure that the profile button stays at the top right
     profileButton: {
         marginLeft: 'auto',
-        marginRight: theme.spacing.unit * 2
+        marginRight: theme.spacing(2)
     },
 
     // Styling for drawer open icon
@@ -65,9 +65,9 @@ const DrawerStyle = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
         }),
-        width: theme.spacing.unit * 7,
+        width: theme.spacing(7),
         [theme.breakpoints.up('sm')]: {
-            width: theme.spacing.unit * 9
+            width: theme.spacing(9)
         }
     },
 
@@ -92,7 +92,7 @@ const DrawerStyle = theme => ({
         minHeight: '100%',
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
-        padding: theme.spacing.unit * 3
+        padding: theme.spacing(3)
     }
 });
 export default DrawerStyle;

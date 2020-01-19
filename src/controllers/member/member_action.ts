@@ -2,13 +2,11 @@ import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 
 // Import models
-import RedeemItem from '../../models/redeemitem';
 import Member from '../../models/member';
-import Redeemable from '../../models/redeemable';
 
 // Import controllers/helpers
-import * as MemberRepController from './member_rep';
 import { processAvatar } from '../../helper/avatar_upload';
+import ErrorStatus from '../../helper/error';
 
 // Updates a member
 export let updateMember = async (
@@ -38,8 +36,7 @@ export let updateMember = async (
         ).select({ posts: 0, redeemItems: 0 });
         // Throw error if member does not exist
         if (!member) {
-            const err: Error = new Error('Cannot find member');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Cannot find member', 404);
             throw err;
         }
 
@@ -72,8 +69,7 @@ export let updateMemberAvatar = async (
             res.json(member);
         } else {
             // If there is no file payload
-            const err: Error = new Error('Missing file payload');
-            err.status = 422;
+            const err: Error = new ErrorStatus('Missing file payload', 422);
             throw err;
         }
     } catch (err) {

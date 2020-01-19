@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import RedeemItem from '../../models/redeemitem';
 import * as MemberRepController from '../member/member_rep';
+import ErrorStatus from '../../helper/error';
 
 // Retrieves redeemed items
 export let getRedeemed = async (
@@ -42,8 +43,7 @@ export let getRedeemItem = async (
         // Get the specified redeemitem and return it
         const redeemItem = await RedeemItem.findById(id);
         if (!redeemItem) {
-            const err: Error = new Error('Redeemable not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Redeemable not found', 404);
             throw err;
         }
         res.json(redeemItem.toJSON());
@@ -66,8 +66,7 @@ export let updateRedeemItem = async (
     try {
         const redeemItem = await RedeemItem.findById(id);
         if (!redeemItem) {
-            const err: Error = new Error('Redeem Item not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Redeem Item not found', 404);
             throw err;
         }
         // If the item was pending but the admin wants to reject it
@@ -90,8 +89,7 @@ export let updateRedeemItem = async (
             { new: true, runValidators: true, upsert: true }
         );
         if (!redeemItem) {
-            const err: Error = new Error('Redeem Item not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Redeem Item not found', 404);
             throw err;
         }
         res.json(redeemItem);

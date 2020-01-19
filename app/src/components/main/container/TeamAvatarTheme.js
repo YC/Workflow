@@ -12,7 +12,7 @@ const AvatarTheme = createMuiTheme({
             root: {
                 right: '8px',
                 fontFamily: 'Bitter',
-                margin: '-6px 0'
+                margin: '-7px 0'
             }
         }
     }

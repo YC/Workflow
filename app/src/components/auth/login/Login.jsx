@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 // Various material-ui-next component imports
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -34,14 +34,13 @@ export class LoginPage extends React.Component {
     }
 
     // When new props are received
-    componentWillReceiveProps(newProps) {
-        // Set new props
-        this.props = newProps;
-
-        // If user authentication was successful, redirect to /
-        const { user, history } = this.props;
-        if (user && user.status === 'success') {
-            history.push('/');
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.user !== this.props.user) {
+            // If user authentication was successful, redirect to /
+            const { user, history } = this.props;
+            if (user && user.status === 'success') {
+                history.push('/');
+            }
         }
     }
 
@@ -93,7 +92,9 @@ export class LoginPage extends React.Component {
 
         return (
             <Card>
-                <Helmet title="Login" />
+                <Helmet>
+                    <title>Login</title>
+                </Helmet>
                 <div id="login">
                     {/* Header */}
                     <div>
@@ -147,7 +148,7 @@ export class LoginPage extends React.Component {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            className="authButton"
+                            id="authButton"
                             onClick={e => this.login(e)}
                         >
                             Continue

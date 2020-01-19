@@ -28,7 +28,7 @@ export class Forum extends React.Component {
     }
 
     // On update
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract state/props
         const { postsRetrieved, membersRetrieved } = this.state;
         const { team, actions } = this.props;
@@ -49,6 +49,11 @@ export class Forum extends React.Component {
         if (unretrieved_members.length > 0 && !membersRetrieved) {
             actions.getMembers(unretrieved_members);
             this.setState({ membersRetrieved: true });
+        }
+
+        // If navigating to another team, start anew
+        if (this.props.team.id !== prevProps.team.id) {
+            this.setState({ postsRetrieved: false, membersRetrieved: false });
         }
     }
 
@@ -74,16 +79,6 @@ export class Forum extends React.Component {
             }
         }
         return unretrieved;
-    }
-
-    // When receiving new props
-    componentWillReceiveProps(props) {
-        // If navigating to another team, start anew
-        if (this.props.team.id !== props.team.id) {
-            this.setState({ postsRetrieved: false, membersRetrieved: false });
-        }
-        // Set props
-        this.props = props;
     }
 
     render() {

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import Member from '../../models/member';
+import ErrorStatus from '../../helper/error';
 
 // Transfers rep from one member to another
 export let transferRep = async (
@@ -14,14 +15,12 @@ export let transferRep = async (
 
     // Ensure that sender/receiver exists
     if (!sender || !receiver) {
-        const err = new Error('Member rep could not be retrieved');
-        err.status = 404;
+        const err = new ErrorStatus('Member rep could not be retrieved', 404);
         throw err;
     }
     // Ensure that sender is able to transfer the specified amount of rep
     if (sender.rep - amount < 0) {
-        const err = new Error('Sender has inadequate rep');
-        err.status = 400;
+        const err = new ErrorStatus('Sender has inadequate rep', 400);
         throw err;
     }
 
@@ -40,8 +39,7 @@ export let reduceRep = async (memberID: string, amount: number) => {
 
     // Ensure that member has an adequate amount of rep
     if (member.rep - amount < 0) {
-        const err = new Error('Member has inadequate rep');
-        err.status = 400;
+        const err = new ErrorStatus('Member has inadequate rep', 400);
         throw err;
     }
 

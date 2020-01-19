@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 // Model imports
 import Member from '../../models/member';
 import Team from '../../models/team';
+import ErrorStatus from '../../helper/error';
 
 // Gives admin scope to member (makes member admin)
 export let makeAdmin = async (memberID: string) => {
@@ -68,8 +69,7 @@ export let approveMember = async (
             $set: { active: true }
         });
         if (!member) {
-            const err: Error = new Error('Member not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Member not found', 404);
             throw err;
         }
 
@@ -96,8 +96,7 @@ export let getMember = async (
             redeemItems: 0
         });
         if (!member) {
-            const err: Error = new Error('Cannot find member');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Cannot find member', 404);
             throw err;
         }
 

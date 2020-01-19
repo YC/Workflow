@@ -111,7 +111,7 @@ describe('Member', function() {
     it('/members/:memberID - GET - get member/invalid', async function() {
         const res = await agent.get('/api/members/haha');
         expect(res).to.be.json;
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(400);
     });
 
     // Get members/invalid

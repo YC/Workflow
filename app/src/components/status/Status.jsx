@@ -10,10 +10,18 @@ class Status extends React.Component {
         this.state = { current: null, display: false };
     }
 
-    componentDidUpdate() {
-        // If status has been changed, display it for 2000ms
+    // When new props are received
+    componentDidUpdate(prevProps, prevState, snapshot) {
         const { status } = this.props;
+        const { current } = prevState;
         const { display } = this.state;
+
+        // If status has been updated, set it
+        if (status !== current) {
+            this.setState({ current: status, display: true });
+        }
+
+        // If status has been changed, display it for 2000ms
         if (status && display) {
             setTimeout(
                 function() {
@@ -22,18 +30,6 @@ class Status extends React.Component {
                 4000
             );
         }
-    }
-
-    // When new props are received
-    componentWillReceiveProps(props) {
-        const { status } = props;
-        const { current } = this.state;
-
-        // If status has been updated, set it
-        if (status !== current) {
-            this.setState({ current: status, display: true });
-        }
-        this.props = props;
     }
 
     render() {

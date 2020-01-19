@@ -9,7 +9,7 @@ import {
     createGenerateClassName,
     jssPreset
 } from '@material-ui/core/styles';
-import JssProvider from 'react-jss/lib/JssProvider';
+import { JssProvider } from 'react-jss';
 import { create } from 'jss';
 
 // Primary component imports
@@ -29,7 +29,7 @@ jss.options.insertionPoint = document.getElementById('jss-insertion-point');
 class App extends React.Component {
     render() {
         return (
-            <JssProvider jss={jss} generateClassName={generateClassName}>
+            <JssProvider Jss={jss} generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
                     {/* Define router for navigation and primary paths */}
                     <BrowserRouter>

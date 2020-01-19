@@ -52,7 +52,7 @@ class AwardBadge extends React.Component {
     }
 
     // On update
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props
         const { members, team, getMembers, getAllBadges, badges } = this.props;
         const { membersRetrieved, badgesRetrieved, badge, member } = this.state;
@@ -93,6 +93,12 @@ class AwardBadge extends React.Component {
                     break;
                 }
             }
+        }
+
+        // Navigate to another team
+        // Reretrieve members (if applicable)
+        if (prevProps.team.id !== this.props.team.id) {
+            this.setState({ membersRetrieved: false, member: '' });
         }
     }
 
@@ -135,15 +141,6 @@ class AwardBadge extends React.Component {
 
         // Award badge
         awardBadge(team.id, { memberID: member, badgeID: badge, rep });
-    }
-
-    // When navigating to another team
-    componentWillReceiveProps(props) {
-        // Reretrieve members (if applicable)
-        if (props.team.id !== this.props.team.id) {
-            this.setState({ membersRetrieved: false, member: '' });
-        }
-        this.props = props;
     }
 
     render() {
@@ -216,7 +213,7 @@ class AwardBadge extends React.Component {
                                     value={badge.id}
                                     className={classes.badgeListItem}
                                 >
-                                    <Grid container spacing={16}>
+                                    <Grid container spacing={2}>
                                         {/* Avatar */}
                                         <Grid item>
                                             <Avatar avatar={badge.avatar}>
@@ -251,7 +248,7 @@ class AwardBadge extends React.Component {
                         shrink: true
                     }}
                     label="Rep"
-                    id="message"
+                    // id="message"
                     placeholder="Give some rep..."
                     margin="normal"
                     fullWidth

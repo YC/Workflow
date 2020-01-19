@@ -35,7 +35,7 @@ export class Main extends React.Component {
         this.setState({ teamsRetrieved: false });
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { history, actions, state } = this.props;
         const { teamsRetrieved } = this.state;
         const { user } = state;
@@ -50,13 +50,11 @@ export class Main extends React.Component {
             actions.updateTeams();
             this.setState({ teamsRetrieved: true });
         }
-    }
 
-    componentWillReceiveProps(props) {
         // Adapted from:
         // https://github.com/ReactTraining/react-router/issues/2019
         const scroll = Scroll.animateScroll;
-        if (props.location !== this.props.location) {
+        if (prevProps.location !== this.props.location) {
             scroll.scrollToTop({
                 duration: 500
             });
@@ -74,7 +72,7 @@ export class Main extends React.Component {
         }
         return (
             <Container teams={teams} user={user}>
-                <Grid container spacing={32}>
+                <Grid container spacing={4}>
                     {/* Topbar + Sidebar with Routes/pages as children */}
                     <Grid item xs={12} sm={8}>
                         <Switch>

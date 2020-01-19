@@ -6,6 +6,7 @@ import Member from '../../models/member';
 // Import controllers which handle posts and reputation
 import * as PostController from '../post';
 import * as MemberRepController from './member_rep';
+import ErrorStatus from '../../helper/error';
 
 // Retrieves posts of specified member
 export let getPosts = async (
@@ -40,10 +41,10 @@ export let createPost = async (
         // Extract and verify rep (as it's a post to a member's page)
         const rep: number = Number(req.body.rep);
         if (!rep) {
-            const err: Error = new Error(
-                "Need to specify rep to post to member's page"
+            const err: Error = new ErrorStatus(
+                "Need to specify rep to post to member's page",
+                400
             );
-            err.status = 400;
             throw err;
         }
 

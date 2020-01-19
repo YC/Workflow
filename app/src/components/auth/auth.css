@@ -15,8 +15,8 @@
 }
 
 /* Submit button */
-.authButton {
-    margin: .8em 0 1em 0;
+#authButton {
+    margin: .8em 0 1em 0 !important;
 }
 
 /* Login container */

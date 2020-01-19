@@ -10,6 +10,8 @@ import session from 'express-session';
 import ConnectMongo from 'connect-mongo';
 const MongoStore = ConnectMongo(session);
 import passport from 'passport';
+import mongo_sanitize from 'mongo-sanitize';
+import ErrorStatus from './helper/error';
 
 // Initalise Mongoose models
 import './models';
@@ -50,6 +52,24 @@ if (process.env.NODE_ENV == 'production') {
 // Set up bodyParser for form data on requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Sanitizes object recursively
+const sanitize = (obj: any) => {
+    mongo_sanitize(obj);
+    for (const key of Object.keys(obj)) {
+        if (obj[key] instanceof Object) {
+            sanitize(obj[key]);
+        }
+    }
+    return obj;
+};
+// Sanitize requests
+app.use((req: Request, res: Response, next: NextFunction) => {
+    req.body = sanitize(req.body);
+    req.query = sanitize(req.query);
+    req.params = sanitize(req.params);
+    return next();
+});
 
 // Passport setup
 app.use(session(session_config));
@@ -119,17 +139,21 @@ app.get('*', function(req: Request, res: Response) {
 
 // Catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
-    const err = new Error('Not Found');
-    err.status = 404;
+    const err = new ErrorStatus('Not Found', 404);
     next(err);
 });
 
 // Error handler
 // Adapted from express-generator code - Licensed under MIT
 // eslint-disable-next-line no-unused-vars
-app.use(function(err: Error, req: Request, res: Response, next: NextFunction) {
+app.use(function(
+    err: ErrorStatus,
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     // Set locals, only providing error in development
-    const response: ErrorResponse = {};
+    const response: { message?: String; stack?: String } = {};
     response.message = err.message;
     if (req.app.get('env') === 'development') {
         response.stack = err.stack;

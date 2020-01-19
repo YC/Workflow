@@ -39,11 +39,9 @@ export class Upvote extends React.Component {
         // Update vote count
         this.setState({ count: votes.length });
         // If userID is in votes, then user has upvoted
-        for (let id of votes) {
-            if (id === userID) {
-                this.setState({ upvoted: true });
-                return;
-            }
+        if (votes.includes(userID)) {
+            this.setState({ upvoted: true });
+            return;
         }
         this.setState({ upvoted: false });
     }
@@ -54,11 +52,12 @@ export class Upvote extends React.Component {
     }
 
     // Recieve new props for component
-    componentWillReceiveProps(newProps) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         // Reset upvote state and re-enable vote button
-        this.props = newProps;
-        this.setState({ upvoteDisabled: false });
-        this.setUpvoteState();
+        if (prevProps.votes !== this.props.votes) {
+            this.setState({ upvoteDisabled: false });
+            this.setUpvoteState();
+        }
     }
 
     // Submits an upvote/downvote

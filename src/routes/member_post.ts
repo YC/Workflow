@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams: true });
 // Import member post controller and middleware
 import * as MemberPostController from '../controllers/member/member_post';
 import * as MemberMiddleware from '../middleware/member';
-import * as PostMiddleware from '../middleware/post';
+import validateID from '../middleware/id';
 import upload from '../helper/pic_upload';
 
 // Get post
@@ -19,23 +19,19 @@ router.post(
 );
 
 // Add comment
-router.post(
-    '/:postID',
-    PostMiddleware.validateID,
-    MemberPostController.addComment
-);
+router.post('/:postID', validateID('postID'), MemberPostController.addComment);
 
 // Add upvote
 router.post(
     '/:postID/upvote',
-    PostMiddleware.validateID,
+    validateID('postID'),
     MemberPostController.upvotePost
 );
 
 // Remove upvote
 router.delete(
     '/:postID/upvote',
-    PostMiddleware.validateID,
+    validateID('postID'),
     MemberPostController.removePostUpvote
 );
 

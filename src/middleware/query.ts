@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import isMongoId from 'validator/lib/isMongoId';
+import mongoose from 'mongoose';
+import ErrorStatus from '../helper/error';
 
 // Parses req.query and transforms them into parameters used by
 // mongoose/mongo queries
@@ -34,9 +35,11 @@ export let parseQuery = (req: Request, res: Response, next: NextFunction) => {
 
             // Check ids
             for (const id of filter['_id']) {
-                if (!isMongoId(id)) {
-                    const err = new Error('Requested ids are not valid');
-                    err.status = 400;
+                if (!mongoose.Types.ObjectId.isValid(id)) {
+                    const err = new ErrorStatus(
+                        'Requested ids are not valid',
+                        400
+                    );
                     return next(err);
                 }
             }

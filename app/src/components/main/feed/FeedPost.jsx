@@ -161,7 +161,7 @@ export class FeedPost extends React.Component {
                 />
 
                 {/* Expand button/text for comments */}
-                <CardActions disableActionSpacing>
+                <CardActions disableSpacing>
                     <IconButton
                         className={classnames({
                             [classes.arrow]: this.state.expanded

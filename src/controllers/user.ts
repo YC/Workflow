@@ -7,6 +7,7 @@ import Member from '../models/member';
 import Redeemable from '../models/redeemable';
 import RedeemItem from '../models/redeemitem';
 import * as MemberRepController from './member/member_rep';
+import ErrorStatus from '../helper/error';
 
 // Handles user login
 export let login = async (req: Request, res: Response, next: NextFunction) => {
@@ -94,8 +95,7 @@ export let redeemItem = async (
         // Get the redeemable
         const redeemable = await Redeemable.findById(redeemableID);
         if (!redeemable) {
-            const err = new Error('Redeemable could not be found');
-            err.status = 404;
+            const err = new ErrorStatus('Redeemable could not be found', 404);
             throw err;
         }
         // Find amount of rep that is required to redeem the item

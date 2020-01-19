@@ -91,8 +91,9 @@ const theme = createMuiTheme({
         body1: {
             fontFamily: 'Roboto, Arial, sans-serif',
             fontWeight: 300,
-            fontSize: 16,
-            color: '#757575'
+            fontSize: 14,
+            fontHeight: 1.5,
+            color: 'rgba(0, 0, 0, 0.87)'
         }
     },
 
@@ -127,6 +128,22 @@ const theme = createMuiTheme({
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 color: '#757575'
+            }
+        },
+
+        // Form control
+        MuiFormControl: {
+            root: {
+                display: 'flex'
+            }
+        },
+
+        // Tab
+        MuiTab: {
+            root: {
+                '@media (min-width: 600px)': {
+                    minWidth: 'inherit'
+                }
             }
         }
     }

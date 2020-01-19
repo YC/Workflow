@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -57,7 +57,9 @@ class Search extends React.Component {
 
         return (
             <React.Fragment>
-                <Helmet title="Search" />
+                <Helmet>
+                    <title>Search</title>
+                </Helmet>
 
                 {/* Query box */}
                 <Card>
@@ -88,10 +90,7 @@ class Search extends React.Component {
                 {search && search.members && (
                     <React.Fragment>
                         <Divider className={classes.divider} />
-                        <Typography
-                            variant="h4"
-                            className={classes.header}
-                        >
+                        <Typography variant="h4" className={classes.header}>
                             Members
                         </Typography>
 
@@ -110,10 +109,7 @@ class Search extends React.Component {
                 {search && search.posts && (
                     <React.Fragment>
                         <Divider className={classes.divider} />
-                        <Typography
-                            className={classes.header}
-                            variant="h4"
-                        >
+                        <Typography className={classes.header} variant="h4">
                             Posts
                         </Typography>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 // Various material-ui-next components
 import MenuItem from '@material-ui/core/MenuItem';
@@ -51,14 +51,13 @@ export class RegisterPage extends React.Component {
     }
 
     // When new props are received
-    componentWillReceiveProps(newProps) {
-        // Set new props
-        this.props = newProps;
-
-        // If user registration was successful, redirect
-        const { user, history } = this.props;
-        if (user && user.status === 'success') {
-            history.push('/auth/success');
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.user !== this.props.user) {
+            // If user registration was successful, redirect
+            const { user, history } = this.props;
+            if (user && user.status === 'success') {
+                history.push('/auth/success');
+            }
         }
     }
 
@@ -149,7 +148,9 @@ export class RegisterPage extends React.Component {
 
         return (
             <Card>
-                <Helmet title="Register" />
+                <Helmet>
+                    <title>Register</title>
+                </Helmet>
                 <div id="register">
                     {/* Heading */}
                     <Typography variant="h3" id="register-heading">
@@ -158,7 +159,7 @@ export class RegisterPage extends React.Component {
 
                     <form>
                         {/* Name fields */}
-                        <Grid container spacing={8}>
+                        <Grid container spacing={1}>
                             <Grid item>
                                 <TextField
                                     className="flex"
@@ -310,7 +311,7 @@ export class RegisterPage extends React.Component {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            className="authButton"
+                            id="authButton"
                             onClick={e => this.register(e)}
                         >
                             Continue

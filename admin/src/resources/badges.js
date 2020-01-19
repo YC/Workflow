@@ -17,7 +17,6 @@ import {
     Datagrid,
     TextField,
     EditButton,
-    DisabledInput,
     SimpleForm,
     TextInput,
     BooleanField,
@@ -46,7 +45,7 @@ export const BadgeList = props => (
 export const BadgeEdit = props => (
     <Edit title={<BadgeTitle />} {...props}>
         <SimpleForm>
-            <DisabledInput source="id" />
+            <TextField source="id" disabled />
             <BooleanInput label="Active" source="active" />
             <TextInput source="name" />
             <TextInput source="description" options={{ multiline: true }} />

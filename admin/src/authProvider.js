@@ -3,12 +3,10 @@
 // https://github.com/marmelab/react-admin/tree/master/examples/tutorial/src
 // Licensed under MIT
 
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR } from 'react-admin';
 import { apiURL } from './dataProvider';
 
-export default (type, params) => {
-    // Called when the user attempts to log in
-    if (type === AUTH_LOGIN) {
+const authProvider = {
+    login: params => {
         // Extract username/password
         const { username, password } = params;
         // Define login request
@@ -38,10 +36,8 @@ export default (type, params) => {
                     return Promise.reject();
                 }
             });
-    }
-
-    // Called when the user clicks on the logout button
-    if (type === AUTH_LOGOUT) {
+    },
+    logout: params => {
         // Define logout request
         const request = new Request(apiURL + '/user/logout', {
             method: 'GET',
@@ -52,13 +48,24 @@ export default (type, params) => {
         return fetch(request, { credentials: 'include' }).then(() => {
             return Promise.resolve();
         });
-    }
-
-    // Called when the API returns an error
-    if (type === AUTH_ERROR) {
-        return Promise.reject();
-    }
-
-    // Resolve all valid requests
-    return Promise.resolve();
+    },
+    checkError: params => {
+        return Promise.resolve();
+    },
+    checkAuth: params => {
+        // Define logout request
+        const request = new Request(apiURL + '/user/session', {
+            method: 'GET',
+            headers: new Headers({ 'Content-Type': 'application/json' })
+        });
+        return fetch(request, { credentials: 'include' }).then(res => {
+            if (res.status === 200) {
+                return Promise.resolve();
+            } else {
+                return Promise.reject();
+            }
+        });
+    },
+    getPermissions: params => Promise.resolve()
 };
+export default authProvider;

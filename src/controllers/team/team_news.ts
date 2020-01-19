@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 // Import models/controllers
 import NewsItem from '../../models/newsitem';
 import Team from '../../models/team';
-import * as TeamController from './team';
+import ErrorStatus from '../../helper/error';
 
 // Creates a news item
 export let createNewsItem = async (
@@ -25,8 +25,7 @@ export let createNewsItem = async (
         // Get the team with newsItem field
         const team = await Team.findById(teamID, 'newsItems');
         if (!team) {
-            const err = new Error('Team could not be found');
-            err.status = 404;
+            const err = new ErrorStatus('Team could not be found', 404);
             throw err;
         }
 

@@ -8,6 +8,7 @@ import * as TeamNewsController from '../controllers/team/team_news';
 import * as TeamMiddleware from '../middleware/team';
 import * as AuthMiddleware from '../middleware/auth';
 import * as QueryMiddleware from '../middleware/query';
+import validateID from '../middleware/id';
 
 // Import avatar helper
 import { avatar } from '../helper/avatar_upload';
@@ -25,7 +26,7 @@ router.get('/', QueryMiddleware.parseQuery, TeamController.getTeams);
 // Get specified team
 router.get(
     '/:teamID',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isMember,
     TeamController.getTeam
@@ -34,7 +35,7 @@ router.get(
 // Update team
 router.put(
     '/:teamID',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isManager,
     TeamController.updateTeam
@@ -43,7 +44,7 @@ router.put(
 // Update team avatar
 router.put(
     '/:teamID/avatar',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isManager,
     avatar.single('avatar'),
@@ -53,7 +54,7 @@ router.put(
 // Add member/manager
 router.post(
     '/:teamID/members/add',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isManager,
     TeamController.addMember
@@ -61,7 +62,7 @@ router.post(
 // Remove member/manager
 router.post(
     '/:teamID/members/remove',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isManager,
     TeamController.removeMember
@@ -70,7 +71,7 @@ router.post(
 // Add NewsItem
 router.post(
     '/:teamID/news',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isManager,
     TeamNewsController.createNewsItem
@@ -79,7 +80,7 @@ router.post(
 // Award Badge
 router.post(
     '/:teamID/award/badge',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isManager,
     TeamController.awardBadge
@@ -88,7 +89,7 @@ router.post(
 // Use router for post related routes
 router.use(
     '/:teamID/posts',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isMember,
     TeamPostRouter
@@ -97,7 +98,7 @@ router.use(
 // Use router for thread related routes
 router.use(
     '/:teamID/threads',
-    TeamMiddleware.validateID,
+    validateID('teamID'),
     TeamMiddleware.getTeamMembers,
     TeamMiddleware.isMember,
     TeamThreadRouter

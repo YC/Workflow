@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
+import ErrorStatus from '../helper/error';
 
 // Ensure that the user is an admin
 export let isAdmin = (req: Request, res: Response, next: NextFunction) => {
@@ -9,10 +9,10 @@ export let isAdmin = (req: Request, res: Response, next: NextFunction) => {
     }
 
     // If user is not admin
-    const err: Error = new Error(
-        'User is not permitted to perform the requested actions'
+    const err: Error = new ErrorStatus(
+        'User is not permitted to perform the requested actions',
+        403
     );
-    err.status = 403;
     next(err);
 };
 
@@ -28,7 +28,6 @@ export let isAuthenticated = (
     }
 
     // If user is not authenticated
-    const err: Error = new Error('User is not authenticated');
-    err.status = 401;
+    const err: Error = new ErrorStatus('User is not authenticated', 401);
     return next(err);
 };

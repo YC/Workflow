@@ -9,6 +9,7 @@ import Badge from '../../models/badge';
 import * as PostController from '../post';
 import { checkMember } from '../../middleware/team';
 import { processAvatar } from '../../helper/avatar_upload';
+import ErrorStatus from '../../helper/error';
 
 // Creates a team
 export let createTeam = async (
@@ -48,8 +49,7 @@ export let getTeam = async (
         // Retrieve and return team
         const team = await Team.findById(teamID, { posts: 0, threads: 0 });
         if (!team) {
-            const err: Error = new Error('Cannot find team');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Cannot find team', 404);
             throw err;
         }
 
@@ -86,8 +86,10 @@ export let getTeams = async (
             for (const team of teams) {
                 // If user is not member or manager of requested team
                 if (!checkMember(req.user, team)) {
-                    const err = new Error('User is not member of team');
-                    err.status = 403;
+                    const err = new ErrorStatus(
+                        'User is not member of team',
+                        403
+                    );
                     throw err;
                 }
             }
@@ -132,8 +134,7 @@ export let updateTeam = async (
             { new: true, runValidators: true }
         ).select({ posts: 0, threads: 0 });
         if (!team) {
-            const err: Error = new Error('Team not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Team not found', 404);
             throw err;
         }
 
@@ -166,8 +167,7 @@ export let updateTeamAvatar = async (
             ).select({ posts: 0, threads: 0 });
             res.json(team);
         } else {
-            const err: Error = new Error('Missing file payload');
-            err.status = 422;
+            const err: Error = new ErrorStatus('Missing file payload', 422);
             throw err;
         }
     } catch (err) {
@@ -216,14 +216,15 @@ export let addMember = async (
                 return res.json({ status: 'success' });
             }
         } else {
-            const err: Error = new Error('Type is invalid');
-            err.status = 400;
+            const err: Error = new ErrorStatus('Type is invalid', 400);
             throw err;
         }
 
         // Member/manager has already been added
-        const err: Error = new Error('Member has already been added to team');
-        err.status = 400;
+        const err: Error = new ErrorStatus(
+            'Member has already been added to team',
+            400
+        );
         throw err;
     } catch (err) {
         next(err);
@@ -273,8 +274,10 @@ export let removeMember = async (
         }
 
         // Specified member is not a member/manager of the team
-        const err = new Error('Member is not member or manager of team');
-        err.status = 400;
+        const err = new ErrorStatus(
+            'Member is not member or manager of team',
+            400
+        );
         throw err;
     } catch (err) {
         next(err);
@@ -299,8 +302,7 @@ export let awardBadge = async (
         // Get the team and the rep of the team
         const team = await Team.findById(teamID, 'rep');
         if (!team) {
-            const err = new Error('Team could not be retrieved');
-            err.status = 404;
+            const err = new ErrorStatus('Team could not be retrieved', 404);
             throw err;
         }
 
@@ -317,8 +319,7 @@ export let awardBadge = async (
                     memberID.toString() === receiverID
             )
         ) {
-            const err = new Error('Member not in team');
-            err.status = 400;
+            const err = new ErrorStatus('Member not in team', 400);
             throw err;
         }
 
@@ -331,15 +332,13 @@ export let awardBadge = async (
         // Ensure that badge exists
         const badge = await Badge.findById(badgeID);
         if (!badge) {
-            const err: Error = new Error('Badge does not exist');
-            err.status = 400;
+            const err: Error = new ErrorStatus('Badge does not exist', 400);
             throw err;
         }
 
         // If rep is insufficient
         if (team.rep - Number(rep) < 0) {
-            const err: Error = new Error('Rep is insufficient');
-            err.status = 400;
+            const err: Error = new ErrorStatus('Rep is insufficient', 400);
             throw err;
         }
 

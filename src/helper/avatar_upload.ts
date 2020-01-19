@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import { Request } from 'express';
 import jimp from 'jimp';
+import ErrorStatus from './error';
 
 // Location of upload directory relative to root of server
 const uploadDirectoryFromRoot = '/uploads/avatars/';
@@ -47,8 +48,7 @@ const fileFilter = (req: Request, file: any, callback: any) => {
     if (mimes.includes(file.mimetype)) {
         callback(undefined, true);
     } else {
-        const err = new Error('Invalid file type');
-        err.status = 400;
+        const err = new ErrorStatus('Invalid file type', 400);
         callback(err, undefined);
     }
 };

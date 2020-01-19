@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
@@ -63,9 +63,26 @@ class Team extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props
         const { teams, fetchPosts, match } = this.props;
+
+        // Update team
+        if (teams && prevState.team !== teams[match.params.shortName]) {
+            this.setState({ team: teams[match.params.shortName] });
+        }
+
+        // Has navigated to another team, so need to reset shortname and flag
+        if (
+            prevState.team &&
+            prevState.team.shortName !== this.props.match.params.shortName
+        ) {
+            this.setState({
+                shortName: match.params.shortName,
+                team_loaded: false,
+                team: null
+            });
+        }
 
         // Load this team
         if (!this.state.team_loaded && teams) {
@@ -89,18 +106,6 @@ class Team extends React.Component {
                 fetchPosts(match.params.shortName);
             }
         }
-    }
-
-    // Has navigated to another team, so need to reset shortname and flag
-    // This then triggers a componentDidUpdate
-    componentWillReceiveProps(newProps) {
-        const { match } = this.props;
-        // Set new props, update path
-        this.props = newProps;
-        this.setState({
-            shortName: match.params.shortName,
-            team_loaded: false
-        });
     }
 
     // Used to change tabs
@@ -155,13 +160,15 @@ class Team extends React.Component {
         return (
             <React.Fragment>
                 {/* Define page title */}
-                <Helmet title={this.state.title} />
+                <Helmet>
+                    <title>{this.state.title}</title>
+                </Helmet>
 
                 {/* Define tabs */}
                 <AppBar position="static" color="default">
                     <Tabs
                         value={value}
-                        variant="scrollable"
+                        variant="fullWidth"
                         scrollButtons="off"
                         onChange={this.handleChange}
                     >

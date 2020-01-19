@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import Redeemable from '../../models/redeemable';
+import ErrorStatus from '../../helper/error';
 
 // Retrieves redeemables
 export let getRedeemables = async (
@@ -68,8 +69,7 @@ export let getRedeemable = async (
         // Get the redeemable and return it
         const redeemable = await Redeemable.findById(redeemableID);
         if (!redeemable) {
-            const err: Error = new Error('Redeemable not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Redeemable not found', 404);
             throw err;
         }
         res.json(redeemable.toJSON());
@@ -96,8 +96,7 @@ export let updateRedeemable = async (
             { new: true, runValidators: true }
         );
         if (!redeemable) {
-            const err: Error = new Error('Redeemable not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Redeemable not found', 404);
             throw err;
         }
         // Return updated redeemable

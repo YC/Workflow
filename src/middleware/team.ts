@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import Team from '../models/team';
-import isMongoId from 'validator/lib/isMongoId';
+import ErrorStatus from '../helper/error';
+import '../types/request';
 
 // Retrieves the team
 export let getTeamMembers = async (
@@ -14,36 +15,22 @@ export let getTeamMembers = async (
 
     // Error if parameters/query is missing
     if (!teamID) {
-        const err = new Error('Required parameters/queries are missing');
-        err.status = 400;
+        const err = new ErrorStatus(
+            'Required parameters/queries are missing',
+            400
+        );
         return next(err);
     }
 
     // Get and set the team
     const team = await Team.findById(teamID, 'members managers active');
     if (!team) {
-        const err = new Error('Team not found');
-        err.status = 404;
+        const err = new ErrorStatus('Team not found', 404);
         return next(err);
     }
 
     req.team = team;
     return next();
-};
-
-// Validates teamID param
-export let validateID = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    // Error when not valid
-    if (!isMongoId(req.params.teamID)) {
-        const err = new Error('teamID is not valid');
-        err.status = 404;
-        return next(err);
-    }
-    next();
 };
 
 // Ensure that user is manager
@@ -58,8 +45,10 @@ export let isManager = async (
         return next();
     } else {
         // If user is not manager
-        const err = new Error('User is not a manager of team ' + req.team.id);
-        err.status = 403;
+        const err = new ErrorStatus(
+            'User is not a manager of team ' + req.team.id,
+            403
+        );
         return next(err);
     }
 };
@@ -96,8 +85,10 @@ export let isMember = async function(
         return next();
     } else {
         // If user is not member
-        const err = new Error('User is not a member of team ' + req.team.id);
-        err.status = 403;
+        const err = new ErrorStatus(
+            'User is not a member of team ' + req.team.id,
+            403
+        );
         return next(err);
     }
 };

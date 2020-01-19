@@ -18,6 +18,7 @@ console.log(`Database URL: ${MONGO_URL}`);
 // used to populate the development database when developing locally
 const www = require('../../build/bin/www');
 const app = www.app;
+export default app;
 
 // Wait for a database connection to open
 before(function(done) {
@@ -50,6 +51,5 @@ import './team_thread';
 // Close database connection and server
 after(function(done) {
     mongoose.connection.close();
-    app.listen(process.env.PORT || 5001).close();
     done();
 });

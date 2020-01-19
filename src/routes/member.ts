@@ -7,6 +7,7 @@ import * as MemberActionController from '../controllers/member/member_action';
 import * as AuthMiddleware from '../middleware/auth';
 import * as MemberMiddleware from '../middleware/member';
 import * as QueryMiddleware from '../middleware/query';
+import validateID from '../middleware/id';
 
 // Import avatar helper
 import { avatar } from '../helper/avatar_upload';
@@ -25,16 +26,12 @@ router.post(
 router.get('/', QueryMiddleware.parseQuery, MemberController.getMembers);
 
 // Get one member
-router.get(
-    '/:memberID',
-    MemberMiddleware.validateID,
-    MemberController.getMember
-);
+router.get('/:memberID', validateID('memberID'), MemberController.getMember);
 
 // Get teams of member
 router.get(
     '/:memberID/teams',
-    MemberMiddleware.validateID,
+    validateID('memberID'),
     MemberMiddleware.userIsMember,
     MemberController.getTeams
 );
@@ -42,14 +39,14 @@ router.get(
 // Get badges
 router.get(
     '/:memberID/badges',
-    MemberMiddleware.validateID,
+    validateID('memberID'),
     MemberController.getBadges
 );
 
 // Update member
 router.put(
     '/:memberID',
-    MemberMiddleware.validateID,
+    validateID('memberID'),
     MemberMiddleware.userIsMember,
     MemberActionController.updateMember
 );
@@ -57,13 +54,13 @@ router.put(
 // Update member avatar
 router.put(
     '/:memberID/avatar',
-    MemberMiddleware.validateID,
+    validateID('memberID'),
     MemberMiddleware.userIsMember,
     avatar.single('avatar'),
     MemberActionController.updateMemberAvatar
 );
 
 // Member posts router
-router.use('/:memberID/posts', MemberMiddleware.validateID, MemberPostRouter);
+router.use('/:memberID/posts', validateID('memberID'), MemberPostRouter);
 
 export default router;

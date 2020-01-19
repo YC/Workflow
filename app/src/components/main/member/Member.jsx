@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 
 // material-ui imports
@@ -38,7 +38,7 @@ export class Member extends React.Component {
         this.setState({ username: username });
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props
         const { members, getMemberByUsername, getPosts } = this.props;
 
@@ -75,17 +75,10 @@ export class Member extends React.Component {
         if (member.posts && this.state.member !== member) {
             this.setState({ member: member, title: composeName(member) });
         }
-    }
 
-    // When receiving new props
-    componentWillReceiveProps(newProps) {
-        // Set new props
-        this.props = newProps;
-
-        // Update username if applicable
-        const { match } = this.props;
-        if (this.state.username !== match.params.username) {
-            let username = match.params.username;
+        // Navigating to another user
+        if (prevState.username !== this.props.match.params.username) {
+            let username = this.props.match.params.username;
             this.setState({
                 username: username,
                 retrieveRequestMade: false,
@@ -137,10 +130,12 @@ export class Member extends React.Component {
 
         return (
             <React.Fragment>
-                <Helmet title={title} />
+                <Helmet>
+                    <title>{title}</title>
+                </Helmet>
 
                 {/* Basic bio information */}
-                <Grid container spacing={16} className={classes.container}>
+                <Grid container spacing={2} className={classes.container}>
                     <Grid item className={classes.row}>
                         {/* Profile Picture Avatar */}
                         <Avatar

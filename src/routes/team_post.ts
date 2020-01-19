@@ -5,7 +5,7 @@ const router = express.Router({ mergeParams: true });
 
 // Import team post controllers and middleware
 import * as TeamPostController from '../controllers/team/team_post';
-import * as PostMiddleware from '../middleware/post';
+import validateID from '../middleware/id';
 
 // Get post
 router.get('/', TeamPostController.getPosts);
@@ -14,23 +14,19 @@ router.get('/', TeamPostController.getPosts);
 router.post('/', TeamPostController.createPost);
 
 // Add comment
-router.post(
-    '/:postID',
-    PostMiddleware.validateID,
-    TeamPostController.addComment
-);
+router.post('/:postID', validateID('postID'), TeamPostController.addComment);
 
 // Add upvote
 router.post(
     '/:postID/upvote',
-    PostMiddleware.validateID,
+    validateID('postID'),
     TeamPostController.upvotePost
 );
 
 // Remove upvote
 router.delete(
     '/:postID/upvote',
-    PostMiddleware.validateID,
+    validateID('postID'),
     TeamPostController.removePostUpvote
 );
 

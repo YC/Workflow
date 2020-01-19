@@ -15,7 +15,6 @@ import {
     Datagrid,
     TextField,
     EditButton,
-    DisabledInput,
     SimpleForm,
     TextInput,
     BooleanField,
@@ -28,7 +27,7 @@ import {
 export const RedeemableList = props => (
     <List {...props}>
         <Datagrid>
-            <TextField source="id" />
+            <TextField source="id" disabled />
             <BooleanField source="active" />
             <TextField source="name" />
             <TextField source="description" />
@@ -43,7 +42,7 @@ export const RedeemableList = props => (
 export const RedeemableEdit = props => (
     <Edit title={<RedeemableTitle />} {...props}>
         <SimpleForm>
-            <DisabledInput source="id" />
+            <TextField source="id" disabled />
             <BooleanInput label="Active" source="active" />
             <TextInput source="name" />
             <TextInput source="description" options={{ multiline: true }} />

@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import Team from '../../models/team';
 import Thread from '../../models/thread';
 import Comment from '../../models/comment';
+import ErrorStatus from '../../helper/error';
 
 // Retrieves the threads of the specified team
 export let getThreads = async (
@@ -79,8 +80,7 @@ export let addComment = async (
     try {
         thread = await Thread.findById(threadID);
         if (!thread) {
-            const err: Error = new Error('Thread not found');
-            err.status = 404;
+            const err: Error = new ErrorStatus('Thread not found', 404);
             throw err;
         }
     } catch (err) {
@@ -89,8 +89,7 @@ export let addComment = async (
 
     // Ensure that the parentIDs are equal
     if (!(thread.parentID.toString() === parentID)) {
-        const err: Error = new Error('Post parent is different');
-        err.status = 400;
+        const err: Error = new ErrorStatus('Post parent is different', 400);
         return next(err);
     }
 
@@ -127,16 +126,17 @@ export let upvoteThread = async (
         const thread = await Thread.findById(threadID);
         // Ensure that the parentIDs are equal
         if (!(thread.parentID.toString() === parentID)) {
-            const err: Error = new Error('Post parent is different');
-            err.status = 400;
+            const err: Error = new ErrorStatus('Post parent is different', 400);
             throw err;
         }
 
         // Ensure that member has not already upvoted
         for (const upvotedMemberID of thread.upvotes) {
             if (upvotedMemberID.equals(memberID)) {
-                const err: Error = new Error('Member has already upvoted');
-                err.status = 400;
+                const err: Error = new ErrorStatus(
+                    'Member has already upvoted',
+                    400
+                );
                 throw err;
             }
         }
@@ -166,8 +166,7 @@ export let removeThreadUpvote = async (
         const thread = await Thread.findById(threadID);
         // Ensure that the parentIDs are equal
         if (!(thread.parentID.toString() === parentID)) {
-            const err: Error = new Error('Post parent is different');
-            err.status = 400;
+            const err: Error = new ErrorStatus('Post parent is different', 400);
             throw err;
         }
 
@@ -175,10 +174,10 @@ export let removeThreadUpvote = async (
         const index: number = thread.upvotes.indexOf(memberID);
         // Member's ID is missing
         if (index < 0) {
-            const err: Error = new Error(
-                'Member has not upvoted or has already removed upvote'
+            const err: Error = new ErrorStatus(
+                'Member has not upvoted or has already removed upvote',
+                400
             );
-            err.status = 400;
             throw err;
         }
 

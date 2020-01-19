@@ -6,7 +6,7 @@ const router = express.Router();
 import * as RedeemItemController from '../controllers/redeem/redeemitem';
 import * as AuthMiddleware from '../middleware/auth';
 import * as QueryMiddleware from '../middleware/query';
-import * as RedeemItemMiddleware from '../middleware/redeem_item';
+import validateID from '../middleware/id';
 
 // Get redeemed items
 router.get(
@@ -20,7 +20,7 @@ router.get(
 router.get(
     '/:redeemItemID',
     AuthMiddleware.isAdmin,
-    RedeemItemMiddleware.validateID,
+    validateID('redeemItemID'),
     RedeemItemController.getRedeemItem
 );
 
@@ -28,7 +28,7 @@ router.get(
 router.put(
     '/:redeemItemID',
     AuthMiddleware.isAdmin,
-    RedeemItemMiddleware.validateID,
+    validateID('redeemItemID'),
     RedeemItemController.updateRedeemItem
 );
 
