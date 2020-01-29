@@ -30,7 +30,11 @@ const session_config: any = {
     secret: process.env.SESSION_SECRET || 'default',
     resave: true,
     saveUninitialized: true,
-    cookie: {},
+    cookie: {
+        sameSite: 'strict',
+        httpOnly: true
+    },
+    name: 'auth',
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 };
 // Adapted from https://github.com/YC/linksaver/blob/master/app.js
@@ -38,6 +42,7 @@ const session_config: any = {
 if (process.env.NODE_ENV == 'production') {
     // Ensure that cookies are sent over https
     session_config.cookie.secure = true;
+    session_config.cookie.sameSite = 'strict';
 
     // Redirect http to https
     app.enable('trust proxy');
