@@ -53,6 +53,7 @@ class MainTiles extends React.Component {
 
 // Define props
 MainTiles.propTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
 };
 export default withRouter(withStyles(styles)(MainTiles));

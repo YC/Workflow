@@ -24,6 +24,7 @@ export class TeamMembers extends React.Component {
         this.setState({ team_loaded: false, team_loading: false });
     }
 
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props/state
         const { team, members, getMembers } = this.props;

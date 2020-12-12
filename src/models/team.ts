@@ -34,8 +34,8 @@ interface ITeam {
     name: string;
     shortName: string;
     avatar?: string;
-    members: mongoose.Types.ObjectId[];
-    managers: mongoose.Types.ObjectId[];
+    members: mongoose.Types.ObjectId[] | string[];
+    managers: mongoose.Types.ObjectId[] | string[];
     active: boolean;
     posts: mongoose.Types.ObjectId[];
     threads: mongoose.Types.ObjectId[];

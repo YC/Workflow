@@ -28,6 +28,7 @@ export class Forum extends React.Component {
     }
 
     // On update
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract state/props
         const { postsRetrieved, membersRetrieved } = this.state;

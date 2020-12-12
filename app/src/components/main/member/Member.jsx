@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-// Component/actions/styles imports
 import Feed from '../feed';
 import Avatar from '../common/Avatar';
 import BadgeContainer from './BadgeContainer';
@@ -38,6 +37,7 @@ export class Member extends React.Component {
         this.setState({ username: username });
     }
 
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props
         const { members, getMemberByUsername, getPosts } = this.props;

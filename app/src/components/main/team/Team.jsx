@@ -63,6 +63,7 @@ class Team extends React.Component {
         }
     }
 
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props
         const { teams, fetchPosts, match } = this.props;

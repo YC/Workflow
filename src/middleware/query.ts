@@ -31,7 +31,7 @@ export let parseQuery = (req: Request, res: Response, next: NextFunction) => {
 
         // If querying for multiple ids
         if (queryName === 'ids') {
-            filter['_id'] = req.query[queryName].split(',');
+            filter['_id'] = req.query[queryName].toString().split(',');
 
             // Check ids
             for (const id of filter['_id']) {
@@ -50,7 +50,7 @@ export let parseQuery = (req: Request, res: Response, next: NextFunction) => {
         const queryValue = req.query[queryName];
         if (queryName.includes(',')) {
             // If the value is an array
-            filter[queryName] = queryValue.split(',');
+            filter[queryName] = queryValue.toString().split(',');
         } else {
             // If value is just a value
             filter[queryName] = queryValue;

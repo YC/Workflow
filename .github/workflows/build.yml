@@ -1,0 +1,96 @@
+name: Test and build
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!deploy'
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017/tcp
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15
+
+      # node_modules/ caching
+      - name: Cache src
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+          key: src-${{runner.os}}--${{ hashFiles('package.json') }}
+
+      - name: Cache app
+        uses: actions/cache@v2
+        with:
+          path: |
+            app/node_modules/
+          key: app-${{runner.os}}--${{ hashFiles('app/package.json') }}
+
+      - name: Cache admin
+        uses: actions/cache@v2
+        with:
+          path: |
+            admin/node_modules/
+          key: admin-${{runner.os}}--${{ hashFiles('admin/package.json') }}
+
+      # yarn install
+      - name: Install server dependencies
+        run: yarn
+
+      - name: Install app dependencies
+        working-directory: app
+        run: yarn
+
+      - name: Install admin dependencies
+        working-directory: admin
+        run: yarn
+
+      # Build
+      - run: REACT_APP_API_URL=https://wfl.azurewebsites.net/api yarn run build
+
+      # Tests
+      - name: Run tests
+        run: yarn test
+        env:
+          MONGO_URL: 'mongodb://localhost:${{ job.services.mongo.ports[27017] }}/workflow'
+
+      # Populate
+      - name: Run populate
+        run: yarn run populate
+        env:
+          MONGO_URL: 'mongodb://localhost:${{ job.services.mongo.ports[27017] }}/workflow'
+
+      # Commit
+      - name: Commit to deploy branch (master)
+        if: ${{ github.ref == 'refs/heads/master' && github.repository == 'YC/INFO30005-18' }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch origin deploy || true
+
+          git checkout deploy || git checkout -b deploy
+          find -maxdepth 1 ! -name .git ! -name build ! -name . -exec rm -rf {} \;
+          mv build/* .
+          rm -r build/
+          rm -r populate/ test/ uploads/
+
+          git add -A
+          git commit --allow-empty -m "$GITHUB_REF build #$GITHUB_RUN_ID"
+
+          git push

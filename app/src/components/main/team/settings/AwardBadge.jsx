@@ -52,6 +52,7 @@ class AwardBadge extends React.Component {
     }
 
     // On update
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         // Extract props
         const { members, team, getMembers, getAllBadges, badges } = this.props;

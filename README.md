@@ -1,7 +1,4 @@
 # Workflow
-
-[![CircleCI](https://circleci.com/gh/YC/INFO30005/tree/master.svg?style=svg&circle-token=5a17bfc223c72a1c52d354a10ee81910b223a8e6)](https://circleci.com/gh/YC/INFO30005/tree/master)
-
 Project for Web Information Technologies (INFO30005) - Semester 1, 2018
 
 **Made by:** [Armaan Mcleod](https://github.com/OpticGenius), [Wei How Ng](https://github.com/ngweihow) \& [Steven Tang](https://github.com/yc)  

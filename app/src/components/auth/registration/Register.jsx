@@ -51,6 +51,7 @@ export class RegisterPage extends React.Component {
     }
 
     // When new props are received
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.user !== this.props.user) {
             // If user registration was successful, redirect

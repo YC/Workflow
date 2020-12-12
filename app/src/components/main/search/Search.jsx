@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-// material-ui imports
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +14,6 @@ import CardContent from '@material-ui/core/CardContent';
 import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
 
-// Component/actions/styles imports
 import Feed from '../feed';
 import MemberBox from '../team/member/MemberBox';
 import { search } from '../../../actions/search';

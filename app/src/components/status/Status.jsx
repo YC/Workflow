@@ -11,6 +11,7 @@ class Status extends React.Component {
     }
 
     // When new props are received
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { status } = this.props;
         const { current } = prevState;

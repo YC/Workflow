@@ -63,6 +63,7 @@ class TeamTiles extends React.Component {
 // Define props
 TeamTiles.propTypes = {
     teams: PropTypes.object,
-    history: PropTypes.object
+    history: PropTypes.object,
+    classes: PropTypes.object.isRequired
 };
 export default withRouter(withStyles(styles)(TeamTiles));

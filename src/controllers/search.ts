@@ -11,7 +11,7 @@ export let search = async (req: Request, res: Response, next: NextFunction) => {
     // Extract userID from params
     const userID: string = req.user.id;
     // Get the query
-    const query: string = req.query.q;
+    const query: string = req.query.q.toString();
     // Define case-insensitive regex search
     const re: RegExp = new RegExp(query, 'i');
 
@@ -40,13 +40,13 @@ export let search = async (req: Request, res: Response, next: NextFunction) => {
             managers: userID
         }).select('id');
         // Get teams for user
-        const teams = member_teams.concat(manager_teams);
+        const teams = member_teams.concat(manager_teams).map((t) => t.id);
 
         // Search posts with query
         posts = await Post.find(
             {
                 $text: { $search: query, $diacriticSensitive: false },
-                parentID: teams
+                parentID: { $in: teams }
             },
             { score: { $meta: 'textScore' } }
         )

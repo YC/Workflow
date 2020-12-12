@@ -34,6 +34,7 @@ export class LoginPage extends React.Component {
     }
 
     // When new props are received
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.user !== this.props.user) {
             // If user authentication was successful, redirect to /

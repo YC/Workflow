@@ -37,7 +37,7 @@ const authProvider = {
                 }
             });
     },
-    logout: params => {
+    logout: () => {
         // Define logout request
         const request = new Request(apiURL + '/user/logout', {
             method: 'GET',
@@ -49,10 +49,8 @@ const authProvider = {
             return Promise.resolve();
         });
     },
-    checkError: params => {
-        return Promise.resolve();
-    },
-    checkAuth: params => {
+    checkError: () => Promise.resolve(),
+    checkAuth: () => {
         // Define logout request
         const request = new Request(apiURL + '/user/session', {
             method: 'GET',
@@ -66,6 +64,6 @@ const authProvider = {
             }
         });
     },
-    getPermissions: params => Promise.resolve()
+    getPermissions: () => Promise.resolve()
 };
 export default authProvider;

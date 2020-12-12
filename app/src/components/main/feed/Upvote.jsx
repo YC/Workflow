@@ -52,6 +52,7 @@ export class Upvote extends React.Component {
     }
 
     // Recieve new props for component
+    // eslint-disable-next-line no-unused-vars
     componentDidUpdate(prevProps, prevState, snapshot) {
         // Reset upvote state and re-enable vote button
         if (prevProps.votes !== this.props.votes) {
